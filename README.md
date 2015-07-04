@@ -36,7 +36,7 @@ gulp.task('webpack', ['clean:build'], function() {
     └── simple.js
 ```
 
-** after **
+**after**
 
 ```
 ./
