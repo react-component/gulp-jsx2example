@@ -9,12 +9,33 @@ Compile JSX file to THML (react demo)
 ## Usage
 
 ```js
+return gulp
+  .src(sourceFiles)
+  .pipe(jsx2example(options));
+```
+
+## Options
+
+```
+{
+  readme: 'README.md',      // readme file name, content will be render to index.html
+  package: 'package.json',  // package file name, access repository information 
+  cwd: process.cwd()
+}
+```
+
+## Example
+You can reference this repository `gulpfile.js`
+
+The `examples` floder published to [http://noyobo.com/gulp-jsx2example/](http://noyobo.com/gulp-jsx2example/)
+
+```js
 var jsx2example = require('gulp-jsx2example')
 
 gulp.task('examples', ['clean:site'], function(){
   return gulp
     .src(['./examples/*.*'])
-    .pipe(jsx2example())
+    .pipe(jsx2example()) // jsx2example(options)
     .pipe(gulp.dest('site/examples/'))
 })
 
@@ -31,9 +52,8 @@ gulp.task('webpack', ['clean:build'], function() {
 ./
 ├── README.md
 └── examples
-    ├── picker.js
-    ├── simple-visible.js
-    └── simple.js
+    ├── jsfile.js
+    └── jsxfile.js
 ```
 
 **after**
@@ -45,19 +65,23 @@ gulp.task('webpack', ['clean:build'], function() {
 │   ├── examples
 │   │   ├── common.js
 │   │   ├── common.js.map
-│   │   ├── picker.html
-│   │   ├── picker.js
-│   │   ├── picker.js.map
-│   │   ├── simple-visible.html
-│   │   ├── simple-visible.js
-│   │   ├── simple-visible.js.map
-│   │   ├── simple.html
-│   │   ├── simple.js
-│   │   └── simple.js.map
+│   │   ├── jsfile.html
+│   │   ├── jsfile.js
+│   │   ├── jsfile.js.map
+│   │   ├── jsxfile.html
+│   │   ├── jsxfile.js
+│   │   └── jsxfile.js.map
 │   └── index.html
 └── examples
-    ├── picker.js
-    ├── simple-visible.js
-    └── simple.js
+    ├── jsfile.js
+    └── jsxfile.js
 
 ```
+
+## Publish
+
+```bash
+gh-pages -d site
+```
+
+> https://www.npmjs.com/package/gh-pages

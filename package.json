@@ -4,12 +4,18 @@
   "description": "convert jsx file to html (react demo)",
   "main": "index.js",
   "scripts": {
-    "test": "rm -rf test/build/ && cd test && gulp"
+    "deploy": "gulp && ./node_modules/.bin/gh-pages -d site",
+    "test": "gulp"
   },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/noyobo/gulp-jsx2example.git"
   },
+  "files": [
+    "views/",
+    "lib/",
+    "index.js"
+  ],
   "keywords": [
     "react",
     "jsx",
@@ -35,6 +41,12 @@
     "xtpl": "~3.2.0"
   },
   "devDependencies": {
-    "gulp": "~3.9.0"
+    "babel-core": "~5.6.15",
+    "babel-loader": "~5.3.0",
+    "gh-pages": "~0.3.1",
+    "gulp": "~3.9.0",
+    "gulp-webpack": "~1.5.0",
+    "vinyl-named": "~1.1.0",
+    "webpack": "~1.10.1"
   }
 }
