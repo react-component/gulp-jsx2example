@@ -1,11 +1,12 @@
 {
   "name": "gulp-jsx2example",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "convert jsx file to html (react demo)",
   "main": "index.js",
   "scripts": {
     "deploy": "gulp && ./node_modules/.bin/gh-pages -d site",
-    "test": "gulp"
+    "test": "gulp",
+    "publish": "git push origin"
   },
   "repository": {
     "type": "git",
