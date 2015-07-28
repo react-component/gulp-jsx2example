@@ -8,6 +8,15 @@ var highlightjs = require('highlight.js')
 var merge = require('lodash.merge')
 var xrender = require('./lib/xtpl')
 var markdown = require('./lib/markdown')
+var cwd = process.cwd()
+var pkg = require(path.join(cwd, 'package.json'))
+var srcPath = new RegExp('(["\']' + pkg.name + ')\/src\/', 'g')
+
+function replaceSrcToLib(modName) {
+  return modName.replace(srcPath, function (m, m1) {
+    return m1 + '/lib/';
+  });
+}
 
 module.exports = function(options) {
 
@@ -57,7 +66,7 @@ module.exports = function(options) {
 
 
     var source = chunk.contents.toString()
-    var code = highlightjs.highlightAuto(source).value
+    var code = highlightjs.highlightAuto(replaceSrcToLib(source)).value
 
     var renderData = merge(packageInfo, {
       _common: 'common.js',
