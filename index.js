@@ -109,6 +109,14 @@ module.exports = function(options) {
       contents: new Buffer(indexHtml)
     })
     this.push(indexFile)
+
+    var exampleIndex = new gutil.File({
+      cwd: fileCwd,
+      base: fileBase,
+      path: "examples/index.html",
+      contents: new Buffer('<script>location.href="../";</script>')
+    })
+    this.push(exampleIndex)
     done()
   })
 }
