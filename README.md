@@ -4,7 +4,7 @@ gulp-jsx2example
 [![npm version](http://img.shields.io/npm/v/gulp-jsx2example.svg)](https://www.npmjs.org/package/gulp-jsx2example)
 [![npm download](http://img.shields.io/npm/dm/gulp-jsx2example.svg)](https://www.npmjs.org/package/gulp-jsx2example)
 
-Compile JSX file to THML (react demo)
+Compile JSX file to HTML (react demo)
 
 ## Usage
 
