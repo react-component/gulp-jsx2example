@@ -14,6 +14,7 @@ webpackJsonp([1],[
 	'use strict';
 	
 	var React = __webpack_require__(2);
+	var my = 'gulp-jsx2example/src/xx';
 	
 	React.render(React.createElement(
 	  'div',
