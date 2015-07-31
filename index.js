@@ -11,10 +11,13 @@ var markdown = require('./lib/markdown')
 var cwd = process.cwd()
 var pkg = require(path.join(cwd, 'package.json'))
 var srcPath = new RegExp('(["\']' + pkg.name + ')\/src\/', 'g')
+var lessPath = new RegExp('(["\']' + pkg.name + ')\/assets\/([^.\'"]+).less', 'g')
 
 function replaceSrcToLib(modName) {
   return modName.replace(srcPath, function (m, m1) {
     return m1 + '/lib/';
+  }).replace(lessPath, function (m, m1,m2) {
+    return m1 + '/assets/'+m2+'.css';
   });
 }
 
@@ -68,9 +71,17 @@ module.exports = function(options) {
     var source = chunk.contents.toString()
     var code = highlightjs.highlightAuto(replaceSrcToLib(source)).value
 
+    var css = '';
+    if (opts.dest) {
+      if (fs.existsSync(path.join(cwd, options.dest, basename + '.css'))) {
+        css = '<link rel="stylesheet" href="'+basename + '.css'+'" />';
+      }
+    }
+
     var renderData = merge(packageInfo, {
       _common: 'common.js',
       _app: basename + '.js',
+      _css: css,
       _code: code
     })
 
