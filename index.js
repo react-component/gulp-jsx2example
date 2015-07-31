@@ -74,7 +74,10 @@ module.exports = function(options) {
     var css = '';
     if (opts.dest) {
       if (fs.existsSync(path.join(cwd, options.dest, basename + '.css'))) {
-        css = '<link rel="stylesheet" href="'+basename + '.css'+'" />';
+        css = '<link rel="stylesheet" href="'+basename + '.css" />';
+      }
+      if (fs.existsSync(path.join(cwd, options.dest, 'common.css'))) {
+        css += '<link rel="stylesheet" href="common.css" />';
       }
     }
 
