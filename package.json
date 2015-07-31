@@ -36,7 +36,6 @@
     "highlight.js": "~8.6.0",
     "lodash.merge": "~3.3.2",
     "marked": "~0.3.3",
-    "querystring": "^0.2.0",
     "through2": "~2.0.0",
     "xtemplate": "~4.3.0",
     "xtpl": "~3.2.0"
