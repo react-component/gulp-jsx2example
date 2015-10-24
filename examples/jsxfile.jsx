@@ -1,6 +1,7 @@
 var React =  require('react');
+var ReactDOM = require('react-dom');
 
-React.render(
+ReactDOM.render(
   <div>Hello jsx2example, Thank you for your use</div>,
   document.getElementById('__react-content')
 );

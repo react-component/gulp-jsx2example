@@ -1,6 +1,7 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 
-React.render(
+ReactDOM.render(
   <div>Hello jsx2example</div>,
   document.getElementById('__react-content')
 );

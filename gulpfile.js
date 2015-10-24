@@ -28,9 +28,6 @@ gulp.task('webpack', function() {
           loader: 'babel'
         }]
       },
-      externals: {
-        react: "React"
-      },
       plugins: [
         new webpack.webpack.optimize.CommonsChunkPlugin("common.js")
       ]
