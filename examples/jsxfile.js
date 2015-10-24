@@ -1,27 +1,28 @@
-webpackJsonp([2],[
-/* 0 */
+webpackJsonp([2],{
+
+/***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(4);
+	module.exports = __webpack_require__(160);
 
 
 /***/ },
-/* 1 */,
-/* 2 */,
-/* 3 */,
-/* 4 */
+
+/***/ 160:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var React = __webpack_require__(2);
+	var ReactDOM = __webpack_require__(158);
 	
-	React.render(React.createElement(
+	ReactDOM.render(React.createElement(
 	  'div',
 	  null,
 	  'Hello jsx2example, Thank you for your use'
 	), document.getElementById('__react-content'));
 
 /***/ }
-]);
+
+});
 //# sourceMappingURL=jsxfile.js.map

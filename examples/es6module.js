@@ -17,7 +17,11 @@ webpackJsonp([0],[
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	_react2['default'].render(_react2['default'].createElement(
+	var _reactDom = __webpack_require__(158);
+	
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+	
+	_reactDom2['default'].render(_react2['default'].createElement(
 	  'div',
 	  null,
 	  'Hello jsx2example'
