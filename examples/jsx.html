@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>jsfile.js - example - gulp-jsx2example@1.0.9</title>
+  <title>jsx.js - example - gulp-jsx2example@1.0.8</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -87,12 +87,12 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
   color: #ae81ff;
 }
 
+.hljs-tag .hljs-value,
 .hljs-code,
 .hljs-title,
 .css .hljs-class,
 .hljs-class .hljs-title:last-child {
   color: #a6e22e;
-  /*color: #e6db74;*/
 }
 
 .hljs-link_url {
@@ -121,6 +121,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 .nginx .hljs-title,
 .tex .hljs-special,
 .hljs-header,
+.hljs-attribute,
 .hljs-symbol,
 .hljs-symbol .hljs-string,
 .hljs-tag .hljs-title,
@@ -149,12 +150,12 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
   color: #f8f8f2;
 }
 
-.hljs-tag .hljs-value,
 .hljs-string,
 .css .hljs-id,
 .hljs-subst,
 .hljs-type,
 .ruby .hljs-class .hljs-parent,
+.hljs-built_in,
 .django .hljs-template_tag,
 .django .hljs-variable,
 .smalltalk .hljs-class,
@@ -198,15 +199,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 .php .xml {
   opacity: 0.5;
 }
-/***********/
-.hljs-attribute{
-  color: #a6e22e;
-}
-/***** node keyword ******/
-.hljs-built_in{
-  color: #3396dc;
-  font-weight: bold;
-}
+
   </style>
   <style>
     .container {
@@ -257,21 +250,21 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
 <div class="container">
   <div class="header">
-    <h1>gulp-jsx2example@1.0.9</h1>
+    <h1>gulp-jsx2example@1.0.8</h1>
 
     <p>convert jsx file to html (react demo)</p>
   </div>
   <div class="example" id="__react-content"></div>
   <script src="common.js?nowrap"></script>
-  <script src="jsfile.js?nowrap"></script>
-  <div class="highlight"><pre><code language="js"><span class="hljs-keyword">var</span> React =  <span class="hljs-built_in">require</span>(<span class="hljs-string">'react'</span>);
-<span class="hljs-keyword">var</span> ReactDOM = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react-dom'</span>);
-<span class="hljs-keyword">var</span> my = (<span class="hljs-string">'gulp-jsx2example/lib/xx'</span>);
+  <script src="jsx.js?nowrap"></script>
+  <div class="highlight"><pre><code language="js"><span class="hljs-keyword">import</span> { Tag } <span class="hljs-keyword">from</span> <span class="hljs-string">'antd'</span>;
 
-ReactDOM.render(
-  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"a"</span>&gt;</span>Hello jsx2example<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>,
-  document.getElementById('__react-content')
-);
+ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">Tag</span> <span class="hljs-attribute">closable</span> <span class="hljs-attribute">color</span>=<span class="hljs-value">"blue"</span>&gt;</span>蓝色<span class="hljs-tag">&lt;/<span class="hljs-title">Tag</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">Tag</span> <span class="hljs-attribute">closable</span> <span class="hljs-attribute">color</span>=<span class="hljs-value">"green"</span>&gt;</span>绿色<span class="hljs-tag">&lt;/<span class="hljs-title">Tag</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">Tag</span> <span class="hljs-attribute">closable</span> <span class="hljs-attribute">color</span>=<span class="hljs-value">"yellow"</span>&gt;</span>黄色<span class="hljs-tag">&lt;/<span class="hljs-title">Tag</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">Tag</span> <span class="hljs-attribute">closable</span> <span class="hljs-attribute">color</span>=<span class="hljs-value">"red"</span>&gt;</span>红色<span class="hljs-tag">&lt;/<span class="hljs-title">Tag</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>, document.getElementById('components-tag-demo-colorful'));
 </span></code></pre></div>
 </div>
 <a href="https://github.com/noyobo/gulp-jsx2example#readme">
