@@ -4,7 +4,11 @@ var named = require('vinyl-named')
 
 var gulp = require('gulp')
 
-gulp.task('default', ['webpack'], function() {
+gulp.task('default', function() {
+  gulp.start(['site', 'webpack'])
+})
+
+gulp.task('site', function() {
   return gulp
     .src(['./examples/*.*'])
     .pipe(jsx2example())

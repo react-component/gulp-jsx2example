@@ -4,21 +4,21 @@ var path = require('path')
 var fs = require('fs')
 var through2 = require('through2')
 var gutil = require('gulp-util')
-var highlightjs = require('highlight.js')
 var merge = require('lodash.merge')
 var xrender = require('./lib/xtpl')
 var markdown = require('./lib/markdown')
+var hljs = require('./lib/hljs')
 var cwd = process.cwd()
 var pkg = require(path.join(cwd, 'package.json'))
 var srcPath = new RegExp('(["\']' + pkg.name + ')\/src\/', 'g')
 var lessPath = new RegExp('(["\']' + pkg.name + ')\/assets\/([^.\'"]+).less', 'g')
 
 function replaceSrcToLib(modName) {
-  return modName.replace(srcPath, function (m, m1) {
-    return m1 + '/lib/';
-  }).replace(lessPath, function (m, m1,m2) {
-    return m1 + '/assets/'+m2+'.css';
-  });
+  return modName.replace(srcPath, function(m, m1) {
+    return m1 + '/lib/'
+  }).replace(lessPath, function(m, m1, m2) {
+    return m1 + '/assets/' + m2 + '.css'
+  })
 }
 
 module.exports = function(options) {
@@ -40,7 +40,7 @@ module.exports = function(options) {
     packageInfo = require(packagePath)
   }
   if (!fs.existsSync(readmePath)) {
-    readmePath = '';
+    readmePath = ''
   }
 
   function jsx2example(chunk, enc, cb) {
@@ -69,15 +69,21 @@ module.exports = function(options) {
 
 
     var source = chunk.contents.toString()
-    var code = highlightjs.highlightAuto(replaceSrcToLib(source)).value
+    var fileSuffix = extName.substr(1);
 
-    var css = '';
+    if (fileSuffix === 'jsx') {
+      fileSuffix = 'js';
+    }
+
+    var code = hljs.render(replaceSrcToLib(source), fileSuffix)
+
+    var css = ''
     if (opts.dest) {
       if (fs.existsSync(path.join(cwd, options.dest, basename + '.css'))) {
-        css = '<link rel="stylesheet" href="'+basename + '.css" />';
+        css = '<link rel="stylesheet" href="' + basename + '.css" />'
       }
       if (fs.existsSync(path.join(cwd, options.dest, 'common.css'))) {
-        css += '<link rel="stylesheet" href="common.css" />';
+        css += '<link rel="stylesheet" href="common.css" />'
       }
     }
 

@@ -33,7 +33,7 @@
   "homepage": "https://github.com/noyobo/gulp-jsx2example#readme",
   "dependencies": {
     "gulp-util": "~3.0.6",
-    "highlight.js": "~8.6.0",
+    "highlight.js": "8.x",
     "lodash.merge": "~3.3.2",
     "marked": "~0.3.3",
     "through2": "~2.0.0",
