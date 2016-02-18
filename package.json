@@ -1,6 +1,6 @@
 {
   "name": "gulp-jsx2example",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "convert jsx file to html (react demo)",
   "main": "index.js",
   "scripts": {
@@ -37,8 +37,8 @@
     "lodash.merge": "~3.3.2",
     "marked": "~0.3.3",
     "through2": "~2.0.0",
-    "xtemplate": "~4.3.0",
-    "xtpl": "~3.2.0"
+    "xtemplate": "4.x",
+    "xtpl": "3.x"
   },
   "devDependencies": {
     "babel-core": "~5.6.15",
