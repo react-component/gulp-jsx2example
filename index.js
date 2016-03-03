@@ -83,7 +83,7 @@ module.exports = function(options) {
         css += '<link rel="stylesheet" href="common.css" />'
       }
       if (fs.existsSync(path.join(cwd, options.dest, basename + '.css'))) {
-        css = '<link rel="stylesheet" href="' + basename + '.css" />'
+        css += '<link rel="stylesheet" href="' + basename + '.css" />'
       }
     }
 
