@@ -6,7 +6,7 @@
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <link href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css" rel="stylesheet"/>
+  <link href="//a.alipayobjects.com/normalize.css/3.0.1/normalize.css" rel="stylesheet"/>
   <title>{{name}}@{{version}} - {{description}}</title>
   <style>
     @font-face {
