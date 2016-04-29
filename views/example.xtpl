@@ -72,16 +72,16 @@
   <script src="https://a.alipayobjects.com/??es5-shim/4.0.5/es5-shim.js,es5-shim/4.0.5/es5-sham.js,html5shiv/3.7.2/src/html5shiv.js"></script>
   <![endif]-->
   {{#if(fastclick)}}
-  <script src="https://as.alipayobjects.com/g/component/fastclick/1.0.6/fastclick.js"></script>
+  <script src="https://as.alipayobjects.com/g/component/fastclick/1.0.6/fastclick.js?nowrap"></script>
   {{/if}}
-  <script src="//cdn.bootcss.com/codemirror/5.12.0/codemirror.js"></script>
-  <script src="//cdn.bootcss.com/codemirror/5.12.0/addon/edit/matchbrackets.min.js"></script>
-  <script src="//cdn.bootcss.com/codemirror/5.12.0/addon/selection/active-line.min.js"></script>
-  <script src="//cdn.bootcss.com/codemirror/5.12.0/mode/javascript/javascript.min.js"></script>
-  <script src="//cdn.bootcss.com/codemirror/5.12.0/mode/xml/xml.min.js"></script>
-  <script src="//cdn.bootcss.com/codemirror/5.12.0/mode/jsx/jsx.min.js"></script>
-  <script src="//cdn.bootcss.com/codemirror/5.12.0/addon/edit/closebrackets.min.js"></script>
-  <script src="//cdn.bootcss.com/babel-standalone/6.4.4/babel.min.js"></script>
+  <script src="//cdn.bootcss.com/codemirror/5.12.0/codemirror.js?nowrap"></script>
+  <script src="//cdn.bootcss.com/codemirror/5.12.0/addon/edit/matchbrackets.min.js?nowrap"></script>
+  <script src="//cdn.bootcss.com/codemirror/5.12.0/addon/selection/active-line.min.js?nowrap"></script>
+  <script src="//cdn.bootcss.com/codemirror/5.12.0/mode/javascript/javascript.min.js?nowrap"></script>
+  <script src="//cdn.bootcss.com/codemirror/5.12.0/mode/xml/xml.min.js?nowrap"></script>
+  <script src="//cdn.bootcss.com/codemirror/5.12.0/mode/jsx/jsx.min.js?nowrap"></script>
+  <script src="//cdn.bootcss.com/codemirror/5.12.0/addon/edit/closebrackets.min.js?nowrap"></script>
+  <script src="//cdn.bootcss.com/babel-standalone/6.4.4/babel.min.js?nowrap"></script>
 </head>
 
 <body>
@@ -106,7 +106,6 @@
     <script>FastClick.attach(document.body);</script>
   {{/if}}
   <script src="{{_common}}?nowrap"></script>
-  <script src="{{_app}}?nowrap"></script>
 <script>
   /*********/
 window.onload = function() {
@@ -136,6 +135,10 @@ window.onload = function() {
       console.error(err)
     }
   }
+
+  var code = editor.getValue();
+
+  runCode(code)
 
   editor.on('change', function(CodeMirror, changeObj) {
     var code = CodeMirror.getValue();
