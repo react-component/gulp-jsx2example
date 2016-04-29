@@ -2,229 +2,49 @@
 <html>
 
 <head>
-  <title>jsxfile.js - example - gulp-jsx2example@1.0.9</title>
+  <title> - example - gulp-jsx2example@2.0.0</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <link href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css" rel="stylesheet"/>
+  <link href="https://a.alipayobjects.com/normalize.css/3.0.1/normalize.css" rel="stylesheet"/>
+  <link href="//cdn.bootcss.com/codemirror/5.12.0/codemirror.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/codemirror/5.12.0/theme/monokai.min.css" rel="stylesheet">
   <style>
-    .highlight pre {
-      padding: .8em 1em;
-      font: 14px/20px Consolas, Monaco, 'Andale Mono', monospace;
-      border: 1px solid #e5e8ec;
-      border-radius: 3px;
-      background-color: #21221d;
-      background-image: -webkit-linear-gradient(#21221d 50%, #272822 50%);
-      background-image: -moz-linear-gradient(#21221d 50%, #272822 50%);
-      background-image: -ms-linear-gradient(#21221d 50%, #272822 50%);
-      background-image: -o-linear-gradient(#21221d 50%, #272822 50%);
-      background-image: linear-gradient(#21221d 50%, #272822 50%);
-      background-size: 40px 40px;
-      background-origin: content-box;
-      overflow: auto;
-      -webkit-overflow-scrolling: touch;
-    }
+      .container {
+        width: 86%;
+        max-width: 1000px;
+        margin-left: auto;
+        margin-right: auto;
+      }
 
-    .highlight pre > code {
-      font-family: inherit;
-      direction: ltr;
-      text-align: left;
-      white-space: pre;
-      word-spacing: normal;
-      vertical-align: 2px;
-      display: block;
-      -moz-tab-size: 2;
-      -o-tab-size: 2;
-      tab-size: 2;
-      -webkit-hyphens: none;
-      -moz-hyphens: none;
-      -ms-hyphens: none;
-      hyphens: none;
-      color: #E5E5C2;
-    }
+      .header p {
+        color: #666;
+      }
+
+      .example {
+        padding: 20px 0;
+      }
+      .CodeMirror,
+      .cm-s-monokai.CodeMirror {
+        min-height: 600px;
+        font: 14px/20px Consolas, Monaco, 'Andale Mono', monospace !important;
+        padding: 4px 0;
+        background-color: #21221d;
+        background-image: -webkit-linear-gradient(#21221d 50%, #272822 50%);
+        background-image: -moz-linear-gradient(#21221d 50%, #272822 50%);
+        background-image: -ms-linear-gradient(#21221d 50%, #272822 50%);
+        background-image: -o-linear-gradient(#21221d 50%, #272822 50%);
+        background-image: linear-gradient(#21221d 50%, #272822 50%);
+        background-size: 40px 40px;
+        background-origin: content-box;
+        -webkit-overflow-scrolling: touch;
+      }
+      .CodeMirror-lines{
+        padding: 0;
+      }
   </style>
-  <style>
-/*
-
-Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-license.org/
-
-*/
-
-.hljs {
-  display: block;
-  overflow-x: auto;
-  padding: 0.5em;
-  background: #23241f;
-  -webkit-text-size-adjust: none;
-}
-
-.hljs,
-.hljs-tag,
-.css .hljs-rule,
-.css .hljs-value,
-.aspectj .hljs-function,
-.css .hljs-function
-.hljs-preprocessor,
-.hljs-pragma {
-  color: #f8f8f2;
-}
-
-.hljs-strongemphasis,
-.hljs-strong,
-.hljs-emphasis {
-  color: #a8a8a2;
-}
-
-.hljs-bullet,
-.hljs-blockquote,
-.hljs-horizontal_rule,
-.hljs-number,
-.hljs-regexp,
-.alias .hljs-keyword,
-.hljs-literal,
-.hljs-hexcolor {
-  color: #ae81ff;
-}
-
-.hljs-code,
-.hljs-title,
-.css .hljs-class,
-.hljs-class .hljs-title:last-child {
-  color: #a6e22e;
-  /*color: #e6db74;*/
-}
-
-.hljs-link_url {
-  font-size: 80%;
-}
-
-.hljs-strong,
-.hljs-strongemphasis {
-  font-weight: bold;
-}
-
-.hljs-emphasis,
-.hljs-strongemphasis,
-.hljs-class .hljs-title:last-child,
-.hljs-typename {
-  font-style: italic;
-}
-
-.hljs-keyword,
-.ruby .hljs-class .hljs-keyword:first-child,
-.ruby .hljs-function .hljs-keyword,
-.hljs-function,
-.hljs-change,
-.hljs-winutils,
-.hljs-flow,
-.nginx .hljs-title,
-.tex .hljs-special,
-.hljs-header,
-.hljs-symbol,
-.hljs-symbol .hljs-string,
-.hljs-tag .hljs-title,
-.hljs-value,
-.alias .hljs-keyword:first-child,
-.css .hljs-tag,
-.css .unit,
-.css .hljs-important {
-  color: #f92672;
-}
-
-.hljs-function .hljs-keyword,
-.hljs-class .hljs-keyword:first-child,
-.hljs-aspect .hljs-keyword:first-child,
-.hljs-constant,
-.hljs-typename,
-.hljs-name,
-.css .hljs-attribute {
-  color: #66d9ef;
-}
-
-.hljs-variable,
-.hljs-params,
-.hljs-class .hljs-title,
-.hljs-aspect .hljs-title {
-  color: #f8f8f2;
-}
-
-.hljs-tag .hljs-value,
-.hljs-string,
-.css .hljs-id,
-.hljs-subst,
-.hljs-type,
-.ruby .hljs-class .hljs-parent,
-.django .hljs-template_tag,
-.django .hljs-variable,
-.smalltalk .hljs-class,
-.django .hljs-filter .hljs-argument,
-.smalltalk .hljs-localvars,
-.smalltalk .hljs-array,
-.hljs-attr_selector,
-.hljs-pseudo,
-.hljs-addition,
-.hljs-stream,
-.hljs-envvar,
-.apache .hljs-tag,
-.apache .hljs-cbracket,
-.tex .hljs-command,
-.hljs-prompt,
-.hljs-link_label,
-.hljs-link_url {
-  color: #e6db74;
-}
-
-.hljs-comment,
-.hljs-annotation,
-.hljs-decorator,
-.hljs-pi,
-.hljs-doctype,
-.hljs-deletion,
-.hljs-shebang,
-.apache .hljs-sqbracket,
-.tex .hljs-formula {
-  color: #75715e;
-}
-
-.coffeescript .javascript,
-.javascript .xml,
-.tex .hljs-formula,
-.xml .javascript,
-.xml .vbscript,
-.xml .css,
-.xml .hljs-cdata,
-.xml .php,
-.php .xml {
-  opacity: 0.5;
-}
-/***********/
-.hljs-attribute{
-  color: #a6e22e;
-}
-/***** node keyword ******/
-.hljs-built_in{
-  color: #3396dc;
-  font-weight: bold;
-}
-  </style>
-  <style>
-    .container {
-      width: 86%;
-      max-width: 1000px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .header p {
-      color: #666;
-    }
-
-    .example {
-      padding: 20px 0;
-    }
-  </style>
-
+  <link rel="stylesheet" href="common.css" />
   <script>
     // Console-polyfill. MIT license.
     // https://github.com/paulmillr/console-polyfill
@@ -252,33 +72,82 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
   <script src="https://a.alipayobjects.com/??es5-shim/4.0.5/es5-shim.js,es5-shim/4.0.5/es5-sham.js,html5shiv/3.7.2/src/html5shiv.js"></script>
   <![endif]-->
   
+  <script src="//cdn.bootcss.com/codemirror/5.12.0/codemirror.js?nowrap"></script>
+  <script src="//cdn.bootcss.com/codemirror/5.12.0/addon/edit/matchbrackets.min.js?nowrap"></script>
+  <script src="//cdn.bootcss.com/codemirror/5.12.0/addon/selection/active-line.min.js?nowrap"></script>
+  <script src="//cdn.bootcss.com/codemirror/5.12.0/mode/javascript/javascript.min.js?nowrap"></script>
+  <script src="//cdn.bootcss.com/codemirror/5.12.0/mode/xml/xml.min.js?nowrap"></script>
+  <script src="//cdn.bootcss.com/codemirror/5.12.0/mode/jsx/jsx.min.js?nowrap"></script>
+  <script src="//cdn.bootcss.com/codemirror/5.12.0/addon/edit/closebrackets.min.js?nowrap"></script>
+  <script src="//cdn.bootcss.com/babel-standalone/6.4.4/babel.min.js?nowrap"></script>
 </head>
 
 <body>
-<div class="container">
-  <div class="header">
-    <h1>gulp-jsx2example@1.0.9</h1>
+  <div class="container">
+    <div class="header">
+      <h1>gulp-jsx2example@2.0.0</h1>
 
-    <p>convert jsx file to html (react demo)</p>
-  </div>
-  <div class="example" id="__react-content"></div>
-  <script src="common.js?nowrap"></script>
-  <script src="jsxfile.js?nowrap"></script>
-  <div class="highlight"><pre><code language="js"><span class="hljs-keyword">var</span> React =  <span class="hljs-built_in">require</span>(<span class="hljs-string">'react'</span>);
-<span class="hljs-keyword">const</span> ReactDOM = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react-dom'</span>);
+      <p>convert jsx file to html (react demo)</p>
+    </div>
+    <div class="example" id="__react-content"></div>
+<div class="edit">
+  <textarea id="code" class="code">var React =  require('react');
+const ReactDOM = require('react-dom');
 
 ReactDOM.render(
-  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>Hello jsx2example, Thank you for your use<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>,
+  <div>Hello jsx2example, Thank you for your use</div>,
   document.getElementById('__react-content')
 );
-</span></code></pre></div>
+</textarea>
 </div>
-<a href="https://github.com/noyobo/gulp-jsx2example#readme">
-  <img style="position: absolute; top: 0; right: 0; border: 0;"
-       src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
-       alt="Fork me on GitHub"
-       data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png">
-</a>
+  </div>
+  <a href="https://github.com/noyobo/gulp-jsx2example#readme">
+    <img style="position: absolute; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png">
+  </a>
+  
+  <script src="common.js?nowrap"></script>
+<script>
+  /*********/
+window.onload = function() {
+  var mountNode = document.getElementById('__react-content');
+
+  var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+    lineNumbers: true,
+    styleActiveLine: true,
+    matchBrackets: true,
+    theme: 'monokai',
+    autoCloseBrackets: true,
+    tabSize: 2,
+    mode: 'jsx'
+  });
+
+  function runCode(code) {
+    try {
+      var codeObj = Babel.transform(code, {
+        presets: ['es2015', 'react', 'stage-0']
+      })
+      var es5code = codeObj.code;
+      ReactDOM.unmountComponentAtNode(
+        mountNode
+      )
+      eval(es5code)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  var code = editor.getValue();
+
+  runCode(code)
+
+  editor.on('change', function(CodeMirror, changeObj) {
+    var code = CodeMirror.getValue();
+    runCode(code);
+  });
+}</script>
 </body>
 
 </html>

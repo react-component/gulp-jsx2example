@@ -6,8 +6,8 @@
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <link href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css" rel="stylesheet"/>
-  <title>gulp-jsx2example@1.0.9 - convert jsx file to html (react demo)</title>
+  <link href="//a.alipayobjects.com/normalize.css/3.0.1/normalize.css" rel="stylesheet"/>
+  <title>gulp-jsx2example@2.0.0 - convert jsx file to html (react demo)</title>
   <style>
     @font-face {
       font-family: octicons-anchor;
@@ -737,7 +737,7 @@
 
 <body>
 <div class="header">
-  <h1>gulp-jsx2example@1.0.9</h1>
+  <h1>gulp-jsx2example@2.0.0</h1>
 </div>
 <div class="examples">
   <h3>EXAMPLES</h3>
@@ -766,7 +766,7 @@
   package: <span class="hljs-string">'package.json'</span>,  // package file name, access repository information 
   cwd: process.<span class="hljs-function">cwd</span>()
 </span></span></span>}</code></pre></div><h2>Example<a id="user-content-example" name="example" class="anchor" aria-hidden="true" href="#example"><span class="octicon octicon-link"></span></a></h2><p>You can reference this repository <code>gulpfile.js</code></p>
-<p>The <code>examples</code> floder published to <a href="http://noyobo.com/gulp-jsx2example/" title="null">http://noyobo.com/gulp-jsx2example/</a></p>
+<p>The <code>examples</code> floder published to <a href="http://react-component.github.io/gulp-jsx2example/" title="null">http://react-component.github.io/gulp-jsx2example/</a></p>
 <div class="highlight"><pre><code language="js"><span class="hljs-keyword">var</span> jsx2example = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-jsx2example'</span>)
 
 gulp.task(<span class="hljs-string">'examples'</span>, [<span class="hljs-string">'clean:site'</span>], <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
@@ -774,34 +774,25 @@ gulp.task(<span class="hljs-string">'examples'</span>, [<span class="hljs-string
     .src([<span class="hljs-string">'./examples/*.*'</span>])
     .pipe(jsx2example()) <span class="hljs-comment">// jsx2example(options)</span>
     .pipe(gulp.dest(<span class="hljs-string">'site/examples/'</span>))
-})
-
-<span class="hljs-keyword">var</span> webpack = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-webpack'</span>)
-gulp.task(<span class="hljs-string">'webpack'</span>, [<span class="hljs-string">'clean:build'</span>], <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">return</span> gulp
-    .src([<span class="hljs-string">'./examples/*.*'</span>])
-    .pipe(webpack())
-    .pipe(gulp.dest(<span class="hljs-string">'site/examples/'</span>))</code></pre></div><div class="highlight"><pre><code language="undefined">./
-├── README.md
-└── examples
-    ├── jsfile.js
-    └── jsxfile.js</code></pre></div><p><strong>after</strong></p>
+})</code></pre></div><div class="highlight"><pre><code language="undefined">./
+examples
+├── es6module.jsx
+├── jsfile.js
+└── jsxfile.jsx</code></pre></div><p><strong>after</strong></p>
 <div class="highlight"><pre><code language="undefined">./
-├── README.md
-├── site
-│   ├── examples
-│   │   ├── common.js
-│   │   ├── common.js.map
-│   │   ├── jsfile.html
-│   │   ├── jsfile.js
-│   │   ├── jsfile.js.map
-│   │   ├── jsxfile.html
-│   │   ├── jsxfile.js
-│   │   └── jsxfile.js.map
-│   └── index.html
-└── examples
-    ├── jsfile.js
-    └── jsxfile.js</code></pre></div><h2>Publish<a id="user-content-publish" name="publish" class="anchor" aria-hidden="true" href="#publish"><span class="octicon octicon-link"></span></a></h2><div class="highlight"><pre><code language="bash">gh-pages <span class="hljs-operator">-d</span> site</code></pre></div><blockquote>
+site
+├── examples
+│   ├── common.css
+│   ├── common.js
+│   ├── es6module.html
+│   ├── index.html
+│   ├── jsfile.html
+│   └── jsxfile.html
+└── index.html
+examples
+├── es6module.jsx
+├── jsfile.js
+└── jsxfile.jsx</code></pre></div><h2>Publish<a id="user-content-publish" name="publish" class="anchor" aria-hidden="true" href="#publish"><span class="octicon octicon-link"></span></a></h2><div class="highlight"><pre><code language="bash">gh-pages <span class="hljs-operator">-d</span> site</code></pre></div><blockquote>
 <p><a href="https://www.npmjs.com/package/gh-pages" title="null">https://www.npmjs.com/package/gh-pages</a></p>
 </blockquote>
 
