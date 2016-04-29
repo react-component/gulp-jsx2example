@@ -5,10 +5,16 @@ var fs = require('fs')
 var through2 = require('through2')
 var gutil = require('gulp-util')
 var merge = require('lodash.merge')
+var uniq = require('lodash.uniq')
+var matchRequire = require('match-require');
+
 var xrender = require('./lib/xtpl')
 var markdown = require('./lib/markdown')
 var hljs = require('./lib/hljs')
-var cwd = process.cwd()
+var webpackCompiler = require('./lib/compiler.js');
+var codeTempelte = require('./lib/code-templete.js');
+
+var cwd = process.cwd();
 var pkg = require(path.join(cwd, 'package.json'))
 var srcPath = new RegExp('(["\']' + pkg.name + ')\/src\/', 'g')
 var lessPath = new RegExp('(["\']' + pkg.name + ')\/assets\/([^.\'"]+).less', 'g')
@@ -22,7 +28,7 @@ function replaceSrcToLib(modName) {
 }
 
 module.exports = function(options) {
-
+  var requireModules = ['react', 'react-dom'];
   var opts = merge({
     readme: 'README.md',
     package: 'package.json',
@@ -75,32 +81,41 @@ module.exports = function(options) {
       fileSuffix = 'js';
     }
 
-    var code = hljs.render(replaceSrcToLib(source), fileSuffix)
+    try {
+      var deps = matchRequire.findAll(source);
+      var ideps = matchRequire.findAllImports(source);
+      Array.prototype.push.apply(requireModules, deps);
+      Array.prototype.push.apply(requireModules, ideps);
+    } catch (e) {
+      return cb(e);
+    }
 
-    var css = ''
-    if (opts.dest) {
-      if (fs.existsSync(path.join(cwd, options.dest, 'common.css'))) {
-        css += '<link rel="stylesheet" href="common.css" />'
+    var css = '';
+    var hasCss = false;
+
+    requireModules.some(function(item) {
+      if (/\.(css|less)$/.test(item)) {
+        hasCss = true;
       }
-      if (fs.existsSync(path.join(cwd, options.dest, basename + '.css'))) {
-        css += '<link rel="stylesheet" href="' + basename + '.css" />'
-      }
+    })
+
+    if (hasCss) {
+      css += '<link rel="stylesheet" href="common.css" />'
     }
 
     var fastclick = true;
 
     try {
       fastclick = require.resolve('fastclick');
-    } catch ( e ) {
+    } catch (e) {
       fastclick = false;
     }
 
     var renderData = merge(packageInfo, {
       fastclick: fastclick,
       _common: 'common.js',
-      _app: basename + '.js',
       _css: css,
-      _code: code
+      _code: source
     })
 
     var exampleHtml = xrender(renderData)
@@ -121,6 +136,10 @@ module.exports = function(options) {
   return through2({
     objectMode: true
   }, jsx2example, function(done) {
+    requireModules = uniq(requireModules);
+
+    gutil.log('import modules:', requireModules);
+
     var indexData = {
       _list: filesName
     }
@@ -145,7 +164,26 @@ module.exports = function(options) {
       path: "examples/index.html",
       contents: new Buffer('<script>location.href="../";</script>')
     })
-    this.push(exampleIndex)
-    done()
+    var self = this;
+    self.push(exampleIndex)
+
+    var commonJS = codeTempelte(requireModules);
+
+    webpackCompiler(commonJS, {
+      context: opts.cwd,
+      resolve: {
+        root: opts.cwd
+      },
+      output: {
+        path: opts.cwd,
+        filename: 'common.js'
+      }
+    }, function(err, files) {
+      for (var i = 0; i < files.length; i++) {
+        var file = files[i];
+        self.push(file);
+      }
+      done()
+    })
   })
 }
