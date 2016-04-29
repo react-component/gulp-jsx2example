@@ -32,22 +32,29 @@
   },
   "homepage": "https://github.com/noyobo/gulp-jsx2example#readme",
   "dependencies": {
+    "babel-core": "~6.7.7",
+    "babel-loader": "~6.2.4",
+    "css-loader": "~0.23.1",
+    "extract-text-webpack-plugin": "~1.0.1",
     "gulp-util": "~3.0.6",
     "highlight.js": "8.x",
+    "less": "~2.6.1",
+    "less-loader": "~2.2.3",
     "lodash.merge": "~3.3.2",
+    "lodash.uniq": "~4.2.1",
     "marked": "~0.3.3",
+    "match-require": "~1.1.1",
+    "memory-fs": "~0.3.0",
     "through2": "~2.0.0",
     "xtemplate": "4.x",
     "xtpl": "3.x"
   },
   "devDependencies": {
-    "babel-core": "~5.6.15",
-    "babel-loader": "~5.3.0",
+    "antd": "~0.12.16",
     "gh-pages": "~0.3.1",
     "gulp": "~3.9.0",
-    "gulp-webpack": "~1.5.0",
-    "react": "0.14.x",
-    "react-dom": "0.14.x",
+    "react": "~0.14.8",
+    "react-dom": "~0.14.8",
     "vinyl-named": "~1.1.0"
   }
 }
