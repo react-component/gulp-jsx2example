@@ -18,6 +18,10 @@
         margin-right: auto;
       }
 
+      .code {
+        opacity: 0;
+      }
+
       .header p {
         color: #666;
       }

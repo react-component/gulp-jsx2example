@@ -113,6 +113,7 @@ module.exports = function(options) {
 
     var renderData = merge(packageInfo, {
       fastclick: fastclick,
+      _app: basename + '.js',
       _common: 'common.js',
       _css: css,
       _code: source
