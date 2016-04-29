@@ -3,3 +3,4 @@ test/build
 site
 .idea
 *.iml
+npm-debug.log
