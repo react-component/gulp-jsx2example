@@ -78,6 +78,7 @@
   <script src="//cdn.bootcss.com/codemirror/5.12.0/addon/edit/matchbrackets.min.js"></script>
   <script src="//cdn.bootcss.com/codemirror/5.12.0/addon/selection/active-line.min.js"></script>
   <script src="//cdn.bootcss.com/codemirror/5.12.0/mode/javascript/javascript.min.js"></script>
+  <script src="//cdn.bootcss.com/codemirror/5.12.0/mode/xml/xml.min.js"></script>
   <script src="//cdn.bootcss.com/codemirror/5.12.0/mode/jsx/jsx.min.js"></script>
   <script src="//cdn.bootcss.com/codemirror/5.12.0/addon/edit/closebrackets.min.js"></script>
   <script src="//cdn.bootcss.com/babel-standalone/6.4.4/babel.min.js"></script>
@@ -117,26 +118,9 @@ window.onload = function() {
     matchBrackets: true,
     theme: 'monokai',
     autoCloseBrackets: true,
-    tabSize: 2
+    tabSize: 2,
+    mode: 'jsx'
   });
-
-  var console2 = {
-    log: console.log.bind(console),
-    warn: console.warn.bind(console),
-    error: console.error.bind(console)
-  };
-
-  ['log', 'error', 'warn'].forEach(function(type) {
-    console[type] = function() {
-
-      var message = document.createElement('p');
-      message.className = 'console-message';
-      message.innerHTML = Array.prototype.slice.call(arguments, 0)
-        .join('<br/>');
-
-      console2[type].apply(console2, arguments)
-    }
-  })
 
   function runCode(code) {
     try {
