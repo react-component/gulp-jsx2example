@@ -1,30 +1,29 @@
-'use strict'
+'use strict';
 
-var path = require('path')
-var fs = require('fs')
-var through2 = require('through2')
-var gutil = require('gulp-util')
-var merge = require('lodash.merge')
-var uniq = require('lodash.uniq')
+var path = require('path');
+var fs = require('fs');
+var through2 = require('through2');
+var gutil = require('gulp-util');
+var merge = require('lodash.merge');
+var uniq = require('lodash.uniq');
 var matchRequire = require('match-require');
 
-var xrender = require('./lib/xtpl')
-var markdown = require('./lib/markdown')
-var hljs = require('./lib/hljs')
+var xrender = require('./lib/xtpl');
+var markdown = require('./lib/markdown');
 var webpackCompiler = require('./lib/compiler.js');
 var codeTempelte = require('./lib/code-templete.js');
 
 var cwd = process.cwd();
-var pkg = require(path.join(cwd, 'package.json'))
-var srcPath = new RegExp('(["\']' + pkg.name + ')\/src\/', 'g')
-var lessPath = new RegExp('(["\']' + pkg.name + ')\/assets\/([^.\'"]+).less', 'g')
+var pkg = require(path.join(cwd, 'package.json'));
+var srcPath = new RegExp('(["\']' + pkg.name + ')\/src\/', 'g');
+var lessPath = new RegExp('(["\']' + pkg.name + ')\/assets\/([^.\'"]+).less', 'g');
 
 function replaceSrcToLib(modName) {
   return modName.replace(srcPath, function(m, m1) {
-    return m1 + '/lib/'
+    return m1 + '/lib/';
   }).replace(lessPath, function(m, m1, m2) {
-    return m1 + '/assets/' + m2 + '.css'
-  })
+    return m1 + '/assets/' + m2 + '.css';
+  });
 }
 
 module.exports = function(options) {
@@ -33,48 +32,51 @@ module.exports = function(options) {
     readme: 'README.md',
     package: 'package.json',
     cwd: process.cwd()
-  }, options || {})
+  }, options || {});
 
-  var filesName = []
-  var packagePath = path.join(opts.cwd, opts.package)
-  var readmePath = path.join(opts.cwd, opts.readme)
+  var filesName = [];
+  var packagePath = path.join(opts.cwd, opts.package);
+  var readmePath = path.join(opts.cwd, opts.readme);
 
-  var packageInfo = {}
-  var fileCwd, fileBase
+  var packageInfo = {};
+  var fileCwd, fileBase;
 
   if (fs.existsSync(packagePath)) {
-    packageInfo = require(packagePath)
+    packageInfo = require(packagePath);
   }
   if (!fs.existsSync(readmePath)) {
-    readmePath = ''
+    readmePath = '';
   }
 
   function jsx2example(chunk, enc, cb) {
     if (chunk.isNull()) {
-      return cb(null, chunk)
+      return cb(null, chunk);
     }
 
     if (chunk.isStream()) {
-      return cb(new gutil.PluginError('gulp-jsx2example', 'Streaming not supported'))
+      return cb(new gutil.PluginError('gulp-jsx2example', 'Streaming not supported'));
     }
 
-    var extName = path.extname(chunk.path)
-    var basename = path.basename(chunk.path, extName)
+    var extName = path.extname(chunk.path);
+    var basename = path.basename(chunk.path, extName);
 
     if (extName !== '.js' && extName !== '.jsx') {
-      return cb(null, chunk)
+      return cb(null, chunk);
     }
 
     if (!fileCwd) {
-      fileCwd = chunk.cwd
+      fileCwd = chunk.cwd;
     }
 
     if (!fileBase) {
-      fileBase = chunk.base
+      fileBase = chunk.base;
     }
 
 
-    var source = chunk.contents.toString()
+    var source = chunk.contents.toString();
+
+    source = replaceSrcToLib(source);
+
     var fileSuffix = extName.substr(1);
 
     if (fileSuffix === 'jsx') {
@@ -97,10 +99,10 @@ module.exports = function(options) {
       if (/\.(css|less)$/.test(item)) {
         hasCss = true;
       }
-    })
+    });
 
     if (hasCss) {
-      css += '<link rel="stylesheet" href="common.css" />'
+      css += '<link rel="stylesheet" href="common.css" />';
     }
 
     var fastclick = true;
@@ -117,21 +119,29 @@ module.exports = function(options) {
       _common: 'common.js',
       _css: css,
       _code: source
-    })
+    });
 
-    var exampleHtml = xrender(renderData)
+    var exampleHtml = xrender(renderData);
 
-    chunk.contents = new Buffer(exampleHtml)
-    chunk.path = chunk.path.replace(/\.(js|jsx)$/, '.html')
+    chunk.contents = new Buffer(exampleHtml);
+    chunk.path = chunk.path.replace(/\.(js|jsx)$/, '.html');
 
     filesName.push({
       name: basename,
       url: path.relative(fileCwd, chunk.path)
-    })
-    gutil.log(gutil.colors.green('create html file:'), basename + '.html')
+    });
+    gutil.log(gutil.colors.green('create html file:'), basename + '.html');
 
-    this.push(chunk)
-    cb()
+    this.push(chunk);
+    cb();
+  }
+
+  function getAlias() {
+    var alias = {};
+
+    alias[pkg.name] = cwd;
+
+    return alias;
   }
 
   return through2({
@@ -143,37 +153,38 @@ module.exports = function(options) {
 
     var indexData = {
       _list: filesName
-    }
+    };
     if (readmePath) {
-      indexData._readme = markdown(readmePath)
+      indexData._readme = markdown(readmePath);
     }
 
-    indexData = merge(packageInfo, indexData)
-    var indexHtml = xrender(indexData, 'index')
+    indexData = merge(packageInfo, indexData);
+    var indexHtml = xrender(indexData, 'index');
 
     var indexFile = new gutil.File({
       cwd: fileCwd,
       base: fileBase,
-      path: "index.html",
+      path: 'index.html',
       contents: new Buffer(indexHtml)
-    })
-    this.push(indexFile)
+    });
+    this.push(indexFile);
 
     var exampleIndex = new gutil.File({
       cwd: fileCwd,
       base: fileBase,
-      path: "examples/index.html",
+      path: 'examples/index.html',
       contents: new Buffer('<script>location.href="../";</script>')
-    })
+    });
     var self = this;
-    self.push(exampleIndex)
+    self.push(exampleIndex);
 
     var commonJS = codeTempelte(requireModules);
 
     webpackCompiler(commonJS, {
       context: opts.cwd,
       resolve: {
-        root: opts.cwd
+        root: opts.cwd,
+        alias: getAlias()
       },
       output: {
         path: opts.cwd,
@@ -184,7 +195,7 @@ module.exports = function(options) {
         var file = files[i];
         self.push(file);
       }
-      done()
-    })
-  })
-}
+      done();
+    });
+  });
+};

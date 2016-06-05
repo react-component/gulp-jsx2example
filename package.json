@@ -34,6 +34,12 @@
   "dependencies": {
     "babel-core": "~6.7.7",
     "babel-loader": "~6.2.4",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-syntax-decorators": "^6.8.0",
+    "babel-plugin-transform-es2015-object-super": "^6.8.0",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.5.0",
+    "babel-preset-stage-0": "^6.5.0",
     "css-loader": "~0.23.1",
     "extract-text-webpack-plugin": "~1.0.1",
     "gulp-util": "~3.0.6",
@@ -51,10 +57,12 @@
   },
   "devDependencies": {
     "antd": "~0.12.16",
+    "eslint": "^2.11.1",
+    "eslint-config-airbnb": "^9.0.1",
+    "eslint-plugin-react": "^5.1.1",
     "gh-pages": "~0.3.1",
     "gulp": "~3.9.0",
     "react": "~0.14.8",
-    "react-dom": "~0.14.8",
-    "vinyl-named": "~1.1.0"
+    "react-dom": "~0.14.8"
   }
 }

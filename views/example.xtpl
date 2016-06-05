@@ -47,6 +47,10 @@
       .CodeMirror-lines{
         padding: 0;
       }
+      .code{
+        opacity: 0;
+        filter: alpha(opacity=0);
+      }
   </style>
   {{{_css}}}
   <script>

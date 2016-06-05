@@ -15,12 +15,15 @@ window.require = function(path) {
   namespaces.forEach(function(key, i) {
     if (i === 3) {
       key = camelize(key);
-    };
-    if (key != '@ali' && key !== 'lib') {
+    }
+    if (key !== '@ali' && key !== 'lib') {
       if (result[key]) {
         result = result[key];
+      } else if (window[path]) {
+        // always return path
+        result = window[path];
       } else {
-        throw 'There should not have modules here: ' + path;
+        throw 'There should not have modules here: ' + path + ':' + key;
       }
     }
   });
@@ -28,5 +31,5 @@ window.require = function(path) {
 };
 
 
-window.React = require('react')
-window.ReactDOM = require('react-dom')
+window.React = require('react');
+window.ReactDOM = require('react-dom');
