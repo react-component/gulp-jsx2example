@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title> - example - gulp-jsx2example@2.0.0</title>
+  <title>jsfile.js - example - gulp-jsx2example@2.0.0</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -16,6 +16,10 @@
         max-width: 1000px;
         margin-left: auto;
         margin-right: auto;
+      }
+
+      .code {
+        opacity: 0;
       }
 
       .header p {
@@ -42,6 +46,10 @@
       }
       .CodeMirror-lines{
         padding: 0;
+      }
+      .code{
+        opacity: 0;
+        filter: alpha(opacity=0);
       }
   </style>
   <link rel="stylesheet" href="common.css" />
@@ -93,10 +101,13 @@
 <div class="edit">
   <textarea id="code" class="code">var React =  require('react');
 var ReactDOM = require('react-dom');
-var my = ('gulp-jsx2example/src/xx');
+var My = require('gulp-jsx2example/lib/xx');
 
 ReactDOM.render(
-  <div class="a">Hello jsx2example</div>,
+  <div className="a">
+    Hello jsx2example
+    <My />
+  </div>,
   document.getElementById('__react-content')
 );
 </textarea>
