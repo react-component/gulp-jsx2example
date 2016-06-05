@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>es6module.js - example - gulp-jsx2example@2.0.0</title>
+  <title>es6module.js - example - gulp-jsx2example@2.0.0-2</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -24,6 +24,11 @@
 
       .header p {
         color: #666;
+      }
+
+      .footer{
+        line-height: 60px;
+        text-align: center;
       }
 
       .example {
@@ -51,6 +56,89 @@
         opacity: 0;
         filter: alpha(opacity=0);
       }
+  </style>
+  <style type="text/css">
+    /*!
+     * "Fork me on GitHub" CSS ribbon v0.2.0 | MIT License
+     * https://github.com/simonwhitaker/github-fork-ribbon-css
+    */
+
+    .github-fork-ribbon {
+      box-sizing: initial;
+      width: 12.1em;
+      height: 12.1em;
+      position: absolute;
+      overflow: hidden;
+      top: 0;
+      right: 0;
+      z-index: 9999;
+      pointer-events: none;
+      font-size: 13px;
+      text-decoration: none;
+      text-indent: -999999px;
+    }
+
+    .github-fork-ribbon.fixed {
+      position: fixed;
+    }
+
+    .github-fork-ribbon:before, .github-fork-ribbon:after {
+      /* The right and left classes determine the side we attach our banner to */
+      box-sizing: initial;
+      position: absolute;
+      display: block;
+      width: 15.38em;
+      height: 1.54em;
+      top: 3.23em;
+      right: -3.23em;
+      -webkit-transform: rotate(45deg);
+      -moz-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      -o-transform: rotate(45deg);
+      transform: rotate(45deg);
+    }
+
+    .github-fork-ribbon:before {
+      content: "";
+      /* Add a bit of padding to give some substance outside the "stitching" */
+      padding: .38em 0;
+      /* Set the base colour */
+      background-color: #a00;
+      /* Set a gradient: transparent black at the top to almost-transparent black at the bottom */
+      background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0.15)));
+      background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15));
+      background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15));
+      background-image: -ms-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15));
+      background-image: -o-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15));
+      background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15));
+      /* Add a drop shadow */
+      -webkit-box-shadow: 0 .15em .23em 0 rgba(0, 0, 0, 0.5);
+      -moz-box-shadow: 0 .15em .23em 0 rgba(0, 0, 0, 0.5);
+      box-shadow: 0 .15em .23em 0 rgba(0, 0, 0, 0.5);
+
+      pointer-events: auto;
+    }
+
+    .github-fork-ribbon:after {
+      /* Set the text from the title attribute */
+      content: attr(title);
+      /* Set the text properties */
+      color: #fff;
+      font: 700 1em "Helvetica Neue", Helvetica, Arial, sans-serif;
+      line-height: 1.54em;
+      text-decoration: none;
+      text-shadow: 0 -.08em rgba(0, 0, 0, 0.5);
+      text-align: center;
+      text-indent: 0;
+      /* Set the layout properties */
+      padding: .15em 0;
+      margin: .15em 0;
+      /* Add "stitching" effect */
+      border-width: .08em 0;
+      border-style: dotted;
+      border-color: #fff;
+      border-color: rgba(255, 255, 255, 0.7);
+    }
   </style>
   <link rel="stylesheet" href="common.css" />
   <script>
@@ -88,23 +176,27 @@
   <script src="//cdn.bootcss.com/codemirror/5.12.0/mode/jsx/jsx.min.js?nowrap"></script>
   <script src="//cdn.bootcss.com/codemirror/5.12.0/addon/edit/closebrackets.min.js?nowrap"></script>
   <script src="//cdn.bootcss.com/babel-standalone/6.4.4/babel.min.js?nowrap"></script>
+  
+    <script src="//cdn.bootcss.com/react/15.1.0/react.js"></script>
+    <script src="//cdn.bootcss.com/react/15.1.0/react-dom.js"></script>
+  
 </head>
 
 <body>
   <div class="container">
     <div class="header">
-      <h1>gulp-jsx2example@2.0.0</h1>
+      <h1>gulp-jsx2example@2.0.0-2</h1>
 
-      <p>convert jsx file to html (react demo)</p>
+      <p>convert jsx file to html (REPL)</p>
     </div>
     <div class="example" id="__react-content"></div>
-<div class="edit">
-  <textarea id="code" class="code">import React from 'react';
+    <div class="edit">
+      <textarea id="code" class="code">import React from 'react';
 import ReactDOM from 'react-dom';
 
 import {Button} from 'antd';
 
-require('antd/style/index.less');
+require('antd/dist/antd.less');
 
 class App extends React.Component {
   render() {
@@ -123,14 +215,12 @@ ReactDOM.render(
   <App />
   , mountNode);
 </textarea>
-</div>
+    </div>
+    <div class="footer">
+      generator by gulp-jsx2example@2.0.0-2
+    </div>
   </div>
-  <a href="https://github.com/noyobo/gulp-jsx2example#readme">
-    <img style="position: absolute; top: 0; right: 0; border: 0;"
-         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
-         alt="Fork me on GitHub"
-         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png">
-  </a>
+  <a class="github-fork-ribbon" href="https://github.com/noyobo/gulp-jsx2example#readme" title="Fork me on GitHub">Fork me on GitHub</a>
   
   <script src="common.js?nowrap"></script>
 <script>
@@ -154,9 +244,7 @@ window.onload = function() {
         presets: ['es2015', 'react', 'stage-0']
       })
       var es5code = codeObj.code;
-      ReactDOM.unmountComponentAtNode(
-        mountNode
-      )
+      ReactDOM.unmountComponentAtNode(mountNode)
       eval(es5code)
     } catch (err) {
       console.error(err)

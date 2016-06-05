@@ -7,7 +7,7 @@
   <meta charset="utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link href="//a.alipayobjects.com/normalize.css/3.0.1/normalize.css" rel="stylesheet"/>
-  <title>gulp-jsx2example@2.0.0 - convert jsx file to html (react demo)</title>
+  <title>gulp-jsx2example@2.0.0-2 - convert jsx file to html (REPL)</title>
   <style>
     @font-face {
       font-family: octicons-anchor;
@@ -732,12 +732,99 @@
       max-width: 790px;
       margin:0 auto;
     }
+    .footer{
+      line-height: 60px;
+      text-align: center;
+    }
+  </style>
+  <style type="text/css">
+    /*!
+     * "Fork me on GitHub" CSS ribbon v0.2.0 | MIT License
+     * https://github.com/simonwhitaker/github-fork-ribbon-css
+    */
+
+    .github-fork-ribbon {
+      box-sizing: initial;
+      width: 12.1em;
+      height: 12.1em;
+      position: absolute;
+      overflow: hidden;
+      top: 0;
+      right: 0;
+      z-index: 9999;
+      pointer-events: none;
+      font-size: 13px;
+      text-decoration: none;
+      text-indent: -999999px;
+    }
+
+    .github-fork-ribbon.fixed {
+      position: fixed;
+    }
+
+    .github-fork-ribbon:before, .github-fork-ribbon:after {
+      /* The right and left classes determine the side we attach our banner to */
+      box-sizing: initial;
+      position: absolute;
+      display: block;
+      width: 15.38em;
+      height: 1.54em;
+      top: 3.23em;
+      right: -3.23em;
+      -webkit-transform: rotate(45deg);
+      -moz-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      -o-transform: rotate(45deg);
+      transform: rotate(45deg);
+    }
+
+    .github-fork-ribbon:before {
+      content: "";
+      /* Add a bit of padding to give some substance outside the "stitching" */
+      padding: .38em 0;
+      /* Set the base colour */
+      background-color: #a00;
+      /* Set a gradient: transparent black at the top to almost-transparent black at the bottom */
+      background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0.15)));
+      background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15));
+      background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15));
+      background-image: -ms-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15));
+      background-image: -o-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15));
+      background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15));
+      /* Add a drop shadow */
+      -webkit-box-shadow: 0 .15em .23em 0 rgba(0, 0, 0, 0.5);
+      -moz-box-shadow: 0 .15em .23em 0 rgba(0, 0, 0, 0.5);
+      box-shadow: 0 .15em .23em 0 rgba(0, 0, 0, 0.5);
+
+      pointer-events: auto;
+    }
+
+    .github-fork-ribbon:after {
+      /* Set the text from the title attribute */
+      content: attr(title);
+      /* Set the text properties */
+      color: #fff;
+      font: 700 1em "Helvetica Neue", Helvetica, Arial, sans-serif;
+      line-height: 1.54em;
+      text-decoration: none;
+      text-shadow: 0 -.08em rgba(0, 0, 0, 0.5);
+      text-align: center;
+      text-indent: 0;
+      /* Set the layout properties */
+      padding: .15em 0;
+      margin: .15em 0;
+      /* Add "stitching" effect */
+      border-width: .08em 0;
+      border-style: dotted;
+      border-color: #fff;
+      border-color: rgba(255, 255, 255, 0.7);
+    }
   </style>
 </head>
 
 <body>
 <div class="header">
-  <h1>gulp-jsx2example@2.0.0</h1>
+  <h1>gulp-jsx2example@2.0.0-2</h1>
 </div>
 <div class="examples">
   <h3>EXAMPLES</h3>
@@ -758,13 +845,14 @@
   <div class="markdown-body">
     <h1>gulp-jsx2example<a id="user-content-gulp-jsx2example" name="gulp-jsx2example" class="anchor" aria-hidden="true" href="#gulp-jsx2example"><span class="octicon octicon-link"></span></a></h1><p><a href="https://www.npmjs.org/package/gulp-jsx2example" title="null"><img src="http://img.shields.io/npm/v/gulp-jsx2example.svg" alt="npm version"></a>
 <a href="https://www.npmjs.org/package/gulp-jsx2example" title="null"><img src="http://img.shields.io/npm/dm/gulp-jsx2example.svg" alt="npm download"></a></p>
-<p>Compile JSX file to HTML (react demo)</p>
+<p>Compile JSX file to HTML (REPL)</p>
 <h2>Usage<a id="user-content-usage" name="usage" class="anchor" aria-hidden="true" href="#usage"><span class="octicon octicon-link"></span></a></h2><div class="highlight"><pre><code language="js"><span class="hljs-keyword">return</span> gulp
   .src(sourceFiles)
   .pipe(jsx2example(options));</code></pre></div><h2>Options<a id="user-content-options" name="options" class="anchor" aria-hidden="true" href="#options"><span class="octicon octicon-link"></span></a></h2><div class="highlight"><pre><code language="css"><span class="hljs-rules">{
   <span class="hljs-rule"><span class="hljs-attribute">readme</span>:<span class="hljs-value"> <span class="hljs-string">'README.md'</span>,      // readme file name, content will be render to index.html
   package: <span class="hljs-string">'package.json'</span>,  // package file name, access repository information 
-  cwd: process.<span class="hljs-function">cwd</span>()
+  cwd: process.<span class="hljs-function">cwd</span>(),
+  externalReact: false
 </span></span></span>}</code></pre></div><h2>Example<a id="user-content-example" name="example" class="anchor" aria-hidden="true" href="#example"><span class="octicon octicon-link"></span></a></h2><p>You can reference this repository <code>gulpfile.js</code></p>
 <p>The <code>examples</code> floder published to <a href="http://react-component.github.io/gulp-jsx2example/" title="null">http://react-component.github.io/gulp-jsx2example/</a></p>
 <div class="highlight"><pre><code language="js"><span class="hljs-keyword">var</span> jsx2example = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-jsx2example'</span>)
@@ -798,10 +886,10 @@ examples
 
   </div>
 </div>
-<a href="https://github.com/noyobo/gulp-jsx2example#readme"><img style="position: absolute; top: 0; right: 0; border: 0;"
-                            src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
-                            alt="Fork me on GitHub"
-                            data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+<div class="footer">
+  generator by gulp-jsx2example@2.0.0-2
+</div>
+<a class="github-fork-ribbon" href="https://github.com/noyobo/gulp-jsx2example#readme" title="Fork me on GitHub">Fork me on GitHub</a>
 </body>
 
 </html>
