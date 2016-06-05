@@ -1,6 +1,6 @@
 {
   "name": "gulp-jsx2example",
-  "version": "2.0.0-1",
+  "version": "2.0.0-2",
   "description": "convert jsx file to html (REPL)",
   "main": "index.js",
   "scripts": {
