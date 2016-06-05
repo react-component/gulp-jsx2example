@@ -58,12 +58,9 @@
   },
   "devDependencies": {
     "antd": "~0.12.16",
-    "eslint": "^2.11.1",
-    "eslint-config-airbnb": "^9.0.1",
-    "eslint-plugin-react": "^5.1.1",
     "gh-pages": "~0.3.1",
     "gulp": "~3.9.0",
-    "react": "~0.14.8",
-    "react-dom": "~0.14.8"
+    "react": "^15.1.0",
+    "react-dom": "^15.1.0"
   }
 }
