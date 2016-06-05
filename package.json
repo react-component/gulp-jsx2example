@@ -1,7 +1,7 @@
 {
   "name": "gulp-jsx2example",
   "version": "2.0.0-1",
-  "description": "convert jsx file to html (react demo)",
+  "description": "convert jsx file to html (REPL)",
   "main": "index.js",
   "scripts": {
     "deploy": "gulp && ./node_modules/.bin/gh-pages -d site",
@@ -12,12 +12,6 @@
     "type": "git",
     "url": "git+ssh://git@github.com/noyobo/gulp-jsx2example.git"
   },
-  "files": [
-    "views/",
-    "lib/",
-    "index.js",
-    "webpack.config.js"
-  ],
   "keywords": [
     "react",
     "jsx",
