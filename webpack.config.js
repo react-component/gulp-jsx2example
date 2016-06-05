@@ -1,7 +1,11 @@
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-
 var getBabel = require('./lib/getBabel');
+
+
+var babelLoader = require.resolve('babel-loader');
+var cssLoader = require.resolve('css-loader');
+var lessLoader = require.resolve('less-loader');
 
 module.exports = {
   resolve: {
@@ -9,13 +13,18 @@ module.exports = {
   },
   module: {
     loaders: [{
+      test: /\.css$/,
+      loader: ExtractTextPlugin.extract(
+        cssLoader + '?sourceMap&-minimize!'
+      )
+    }, {
       test: /\.less$/,
       loader: ExtractTextPlugin.extract(
-        'css?sourceMap&-minimize' + '!less?sourceMap'
+        cssLoader + '?sourceMap&-minimize!' + lessLoader + '?sourceMap'
       )
     }, {
       test: /\.jsx?$/,
-      loader: 'babel'
+      loader: babelLoader
     }]
   },
   plugins: [

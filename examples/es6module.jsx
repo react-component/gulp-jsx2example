@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 import {Button} from 'antd';
 
-require('antd/style/index.less');
+require('antd/dist/antd.less');
 
 class App extends React.Component {
   render() {

@@ -9,6 +9,9 @@ gulp.task('default', function() {
 gulp.task('site', function() {
   return gulp
     .src(['./examples/*.*'])
-    .pipe(jsx2example())
+    .pipe(jsx2example({
+      dev: false,
+      externalReact: true
+    }))
     .pipe(gulp.dest('./site/examples'));
 });

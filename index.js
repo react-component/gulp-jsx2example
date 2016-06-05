@@ -31,7 +31,8 @@ module.exports = function(options) {
   var opts = merge({
     readme: 'README.md',
     package: 'package.json',
-    cwd: process.cwd()
+    cwd: process.cwd(),
+    dev: true
   }, options || {});
 
   var filesName = [];
@@ -75,7 +76,9 @@ module.exports = function(options) {
 
     var source = chunk.contents.toString();
 
-    source = replaceSrcToLib(source);
+    if (!opts.dev) {
+      source = replaceSrcToLib(source);
+    }
 
     var fileSuffix = extName.substr(1);
 
@@ -118,7 +121,9 @@ module.exports = function(options) {
       _app: basename + '.js',
       _common: 'common.js',
       _css: css,
-      _code: source
+      _code: source,
+      opts: opts,
+      pkg: pkg
     });
 
     var exampleHtml = xrender(renderData);
@@ -180,7 +185,7 @@ module.exports = function(options) {
 
     var commonJS = codeTempelte(requireModules);
 
-    webpackCompiler(commonJS, {
+    var webpackConfig = {
       context: opts.cwd,
       resolve: {
         root: opts.cwd,
@@ -190,7 +195,16 @@ module.exports = function(options) {
         path: opts.cwd,
         filename: 'common.js'
       }
-    }, function(err, files) {
+    };
+
+    if (opts.externalReact) {
+      webpackConfig.externals = {
+        'react': 'window.React',
+        'react-dom': 'window.ReactDOM'
+      };
+    }
+
+    webpackCompiler(commonJS, webpackConfig, function(err, files) {
       for (var i = 0; i < files.length; i++) {
         var file = files[i];
         self.push(file);

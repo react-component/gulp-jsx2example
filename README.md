@@ -20,7 +20,8 @@ return gulp
 {
   readme: 'README.md',      // readme file name, content will be render to index.html
   package: 'package.json',  // package file name, access repository information 
-  cwd: process.cwd()
+  cwd: process.cwd(),
+  externalReact: false
 }
 ```
 
