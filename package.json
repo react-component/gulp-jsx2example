@@ -15,7 +15,8 @@
   "files": [
     "views/",
     "lib/",
-    "index.js"
+    "index.js",
+    "webpack.config.js"
   ],
   "keywords": [
     "react",
