@@ -8713,6 +8713,10 @@ textarea.ant-input-number {
 .ant-menu-dark.ant-menu-inline .ant-menu-item-selected > a:hover {
   color: #fff;
 }
+.ant-menu-dark.ant-menu-vertical .ant-menu-item-selected > a,
+.ant-menu-dark.ant-menu-vertical .ant-menu-item-selected > a:hover {
+  color: #2db7f5;
+}
 .ant-menu-dark .ant-menu-item-active,
 .ant-menu-dark .ant-menu-submenu-active,
 .ant-menu-dark .ant-menu-submenu-title:hover {

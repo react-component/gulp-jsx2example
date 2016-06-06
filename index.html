@@ -732,10 +732,6 @@
       max-width: 790px;
       margin:0 auto;
     }
-    .footer{
-      line-height: 60px;
-      text-align: center;
-    }
   </style>
   <style type="text/css">
     /*!
@@ -848,12 +844,22 @@
 <p>Compile JSX file to HTML (REPL)</p>
 <h2>Usage<a id="user-content-usage" name="usage" class="anchor" aria-hidden="true" href="#usage"><span class="octicon octicon-link"></span></a></h2><div class="highlight"><pre><code language="js"><span class="hljs-keyword">return</span> gulp
   .src(sourceFiles)
-  .pipe(jsx2example(options));</code></pre></div><h2>Options<a id="user-content-options" name="options" class="anchor" aria-hidden="true" href="#options"><span class="octicon octicon-link"></span></a></h2><div class="highlight"><pre><code language="css"><span class="hljs-rules">{
-  <span class="hljs-rule"><span class="hljs-attribute">readme</span>:<span class="hljs-value"> <span class="hljs-string">'README.md'</span>,      // readme file name, content will be render to index.html
-  package: <span class="hljs-string">'package.json'</span>,  // package file name, access repository information 
-  cwd: process.<span class="hljs-function">cwd</span>(),
-  externalReact: false
-</span></span></span>}</code></pre></div><h2>Example<a id="user-content-example" name="example" class="anchor" aria-hidden="true" href="#example"><span class="octicon octicon-link"></span></a></h2><p>You can reference this repository <code>gulpfile.js</code></p>
+  .pipe(jsx2example(options));</code></pre></div><h2>Options<a id="user-content-options" name="options" class="anchor" aria-hidden="true" href="#options"><span class="octicon octicon-link"></span></a></h2><div class="highlight"><pre><code language="js">{
+  readme: <span class="hljs-string">'README.md'</span>,      <span class="hljs-comment">// readme file name, content will be render to index.html</span>
+  package: <span class="hljs-string">'package.json'</span>,  <span class="hljs-comment">// package file name, access repository information </span>
+  cwd: process.cwd(),
+  externalReact: <span class="hljs-literal">false</span>,     <span class="hljs-comment">// when `true` don't bundle *react* *react-dom* library, </span>
+                            <span class="hljs-comment">// speed up webpack compiler time</span>
+  production: <span class="hljs-literal">false</span>         
+}</code></pre></div><p>If production <code>true</code>, Will replace gulp entry files content match :</p>
+<ul>
+<li><code>new RegExp(&#39;([&quot;\&#39;]&#39; + pkg.name + &#39;)\/src\/&#39;, &#39;g&#39;)</code> =&gt; <code>$1 + &#39;/lib/&#39;</code></li>
+<li><code>new RegExp(&#39;([&quot;\&#39;]&#39; + pkg.name + &#39;)\/assets\/([^.\&#39;&quot;]+).less&#39;, &#39;g&#39;)</code> =&gt; <code>$1 + &#39;/assets/&#39; + $2 + &#39;.css&#39;</code></li>
+</ul>
+<blockquote>
+<p><code>pkg</code> is equal to the <code>options.package</code></p>
+</blockquote>
+<h2>Example<a id="user-content-example" name="example" class="anchor" aria-hidden="true" href="#example"><span class="octicon octicon-link"></span></a></h2><p>You can reference this repository <code>gulpfile.js</code></p>
 <p>The <code>examples</code> floder published to <a href="http://react-component.github.io/gulp-jsx2example/" title="null">http://react-component.github.io/gulp-jsx2example/</a></p>
 <div class="highlight"><pre><code language="js"><span class="hljs-keyword">var</span> jsx2example = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-jsx2example'</span>)
 
@@ -886,9 +892,13 @@ examples
 
   </div>
 </div>
+<style>.footer{line-height: 60px; text-align: center; }</style>
 <div class="footer">
-  generator by gulp-jsx2example@2.0.0-2
+  Generator by <a href="https://www.npmjs.com/package/gulp-jsx2example" target="_blank">
+    gulp-jsx2example@2.0.0-2
+  </a>
 </div>
+
 <a class="github-fork-ribbon" href="https://github.com/noyobo/gulp-jsx2example#readme" title="Fork me on GitHub">Fork me on GitHub</a>
 </body>
 
