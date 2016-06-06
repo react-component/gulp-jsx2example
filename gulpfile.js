@@ -10,7 +10,7 @@ gulp.task('site', function() {
   return gulp
     .src(['./examples/*.*'])
     .pipe(jsx2example({
-      dev: false,
+      production: true,
       externalReact: true
     }))
     .pipe(gulp.dest('./site/examples'));

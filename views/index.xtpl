@@ -732,10 +732,6 @@
       max-width: 790px;
       margin:0 auto;
     }
-    .footer{
-      line-height: 60px;
-      text-align: center;
-    }
   </style>
   <style type="text/css">
     /*!
@@ -842,9 +838,7 @@
     {{{_readme}}}
   </div>
 </div>
-<div class="footer">
-  generator by {{pkg.name}}@{{pkg.version}}
-</div>
+{{include ('./footer.xtpl')}}
 <a class="github-fork-ribbon" href="{{homepage}}" title="Fork me on GitHub">Fork me on GitHub</a>
 </body>
 

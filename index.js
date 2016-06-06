@@ -1,20 +1,23 @@
 'use strict';
 
-var path = require('path');
 var fs = require('fs');
-var through2 = require('through2');
 var gutil = require('gulp-util');
 var merge = require('lodash.merge');
 var uniq = require('lodash.uniq');
 var matchRequire = require('match-require');
+var path = require('path');
+var through2 = require('through2');
 
-var xrender = require('./lib/xtpl');
-var markdown = require('./lib/markdown');
-var webpackCompiler = require('./lib/compiler.js');
 var codeTempelte = require('./lib/code-templete.js');
+var webpackCompiler = require('./lib/compiler.js');
+var markdown = require('./lib/markdown');
+var xrender = require('./lib/xtpl');
 
+var colors = gutil.colors;
 var cwd = process.cwd();
 var pkg = require(path.join(cwd, 'package.json'));
+var jsx2examplePkg = require(path.join(__dirname, 'package.json'));
+
 var srcPath = new RegExp('(["\']' + pkg.name + ')\/src\/', 'g');
 var lessPath = new RegExp('(["\']' + pkg.name + ')\/assets\/([^.\'"]+).less', 'g');
 
@@ -32,8 +35,12 @@ module.exports = function(options) {
     readme: 'README.md',
     package: 'package.json',
     cwd: process.cwd(),
-    dev: true
+    production: false
   }, options || {});
+
+  for (var key in opts) {
+    gutil.log(colors.magenta(jsx2examplePkg.name), key, ':', opts[key]);
+  }
 
   var filesName = [];
   var packagePath = path.join(opts.cwd, opts.package);
@@ -76,14 +83,8 @@ module.exports = function(options) {
 
     var source = chunk.contents.toString();
 
-    if (!opts.dev) {
+    if (opts.production) {
       source = replaceSrcToLib(source);
-    }
-
-    var fileSuffix = extName.substr(1);
-
-    if (fileSuffix === 'jsx') {
-      fileSuffix = 'js';
     }
 
     try {
@@ -123,7 +124,7 @@ module.exports = function(options) {
       _css: css,
       _code: source,
       opts: opts,
-      pkg: pkg
+      jsx2examplePkg: jsx2examplePkg
     });
 
     var exampleHtml = xrender(renderData);
@@ -135,7 +136,7 @@ module.exports = function(options) {
       name: basename,
       url: path.relative(fileCwd, chunk.path)
     });
-    gutil.log(gutil.colors.green('create html file:'), basename + '.html');
+    gutil.log(colors.magenta(jsx2examplePkg.name), colors.green('create html file:'), basename + '.html');
 
     this.push(chunk);
     cb();

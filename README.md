@@ -21,9 +21,20 @@ return gulp
   readme: 'README.md',      // readme file name, content will be render to index.html
   package: 'package.json',  // package file name, access repository information 
   cwd: process.cwd(),
-  externalReact: false
+  externalReact: false,     // when `true` don't bundle *react* *react-dom* library, 
+                            // speed up webpack compiler time
+  production: false         
 }
 ```
+
+
+If production `true`, Will replace gulp entry files content match :
+
+- `new RegExp('(["\']' + pkg.name + ')\/src\/', 'g')` => `$1 + '/lib/'`
+- `new RegExp('(["\']' + pkg.name + ')\/assets\/([^.\'"]+).less', 'g')` => `$1 + '/assets/' + $2 + '.css'`
+
+> `pkg` is equal to the `options.package`
+
 
 ## Example
 You can reference this repository `gulpfile.js`
