@@ -6,7 +6,7 @@
   "scripts": {
     "deploy": "gulp && ./node_modules/.bin/gh-pages -d site",
     "test": "gulp",
-    "publish": "git push origin"
+    "publish": "git push origin 1.x:1.x"
   },
   "repository": {
     "type": "git",
