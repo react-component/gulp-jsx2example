@@ -66,9 +66,13 @@ module.exports = function(options) {
     }
 
     var extName = path.extname(chunk.path);
-    var basename = path.basename(chunk.path, extName);
+    var baseName = path.basename(chunk.path, extName);
+    var dirName = path.dirname(chunk.path);
 
-    if (extName !== '.js' && extName !== '.jsx') {
+    if (
+      extName !== '.js' && extName !== '.jsx' &&
+      extName !== '.ts' && extName !== '.tsx'
+    ) {
       return cb(null, chunk);
     }
 
@@ -119,7 +123,7 @@ module.exports = function(options) {
 
     var renderData = merge(packageInfo, {
       fastclick: fastclick,
-      _app: basename + '.js',
+      _app: baseName + '.js',
       _common: 'common.js',
       _css: css,
       _code: source,
@@ -130,13 +134,14 @@ module.exports = function(options) {
     var exampleHtml = xrender(renderData);
 
     chunk.contents = new Buffer(exampleHtml);
-    chunk.path = chunk.path.replace(/\.(js|jsx)$/, '.html');
+
+    chunk.path = path.join(dirName, baseName + '.html');
 
     filesName.push({
-      name: basename,
+      name: baseName,
       url: path.relative(fileCwd, chunk.path)
     });
-    gutil.log(colors.magenta(jsx2examplePkg.name), colors.green('create html file:'), basename + '.html');
+    gutil.log(colors.magenta(jsx2examplePkg.name), colors.green('create html file:'), baseName + '.html');
 
     this.push(chunk);
     cb();
@@ -206,6 +211,10 @@ module.exports = function(options) {
     }
 
     webpackCompiler(commonJS, webpackConfig, function(err, files) {
+      if (err) {
+        gutil.log(err);
+        process.exit(1);
+      }
       for (var i = 0; i < files.length; i++) {
         var file = files[i];
         self.push(file);

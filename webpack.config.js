@@ -1,15 +1,26 @@
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var getBabel = require('./lib/getBabel');
+var getTs = require('./lib/getTs');
 
 
 var babelLoader = require.resolve('babel-loader');
 var cssLoader = require.resolve('css-loader');
 var lessLoader = require.resolve('less-loader');
+var tsLoader = require.resolve('ts-loader');
 
 module.exports = {
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: [
+      '',
+      '.ts',
+      '.tsx',
+      '.web.ts',
+      '.web.tsx',
+      '.web.js',
+      '.js',
+      '.jsx'
+    ]
   },
   module: {
     loaders: [{
@@ -24,7 +35,12 @@ module.exports = {
       )
     }, {
       test: /\.jsx?$/,
+      exclude: /node_modules/,
       loader: babelLoader
+    }, {
+      test: /\.tsx?$/,
+      exclude: /node_modules/,
+      loaders: [babelLoader, tsLoader]
     }]
   },
   plugins: [
@@ -34,5 +50,6 @@ module.exports = {
       'process.env.NODE_ENV': JSON.stringify('development')
     })
   ],
-  babel: getBabel()
+  babel: getBabel(),
+  ts: getTs()
 };
