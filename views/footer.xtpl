@@ -1,0 +1,6 @@
+<style>.footer{line-height: 60px; text-align: center; }</style>
+<div class="footer">
+  Generator by <a href="https://www.npmjs.com/package/gulp-jsx2example" target="_blank">
+    {{jsx2examplePkg.name}}@{{jsx2examplePkg.version}}
+  </a>
+</div>

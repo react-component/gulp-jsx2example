@@ -1,8 +1,11 @@
 var React =  require('react');
 var ReactDOM = require('react-dom');
-var my = ('gulp-jsx2example/src/xx');
+var My = require('gulp-jsx2example/src/xx');
 
 ReactDOM.render(
-  <div class="a">Hello jsx2example</div>,
+  <div className="a">
+    Hello jsx2example
+    <My />
+  </div>,
   document.getElementById('__react-content')
 );
