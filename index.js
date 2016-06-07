@@ -14,14 +14,14 @@ var srcPath = new RegExp('(["\']' + pkg.name + ')\/src\/', 'g')
 var lessPath = new RegExp('(["\']' + pkg.name + ')\/assets\/([^.\'"]+).less', 'g')
 
 function replaceSrcToLib(modName) {
-  return modName.replace(srcPath, function(m, m1) {
+  return modName.replace(srcPath, function (m, m1) {
     return m1 + '/lib/'
-  }).replace(lessPath, function(m, m1, m2) {
+  }).replace(lessPath, function (m, m1, m2) {
     return m1 + '/assets/' + m2 + '.css'
   })
 }
 
-module.exports = function(options) {
+module.exports = function (options) {
 
   var opts = merge({
     readme: 'README.md',
@@ -55,7 +55,7 @@ module.exports = function(options) {
     var extName = path.extname(chunk.path)
     var basename = path.basename(chunk.path, extName)
 
-    if (extName !== '.js' && extName !== '.jsx') {
+    if (extName !== '.js' && extName !== '.jsx' && extName !== '.tsx' && extName !== '.ts') {
       return cb(null, chunk)
     }
 
@@ -71,7 +71,7 @@ module.exports = function(options) {
     var source = chunk.contents.toString()
     var fileSuffix = extName.substr(1);
 
-    if (fileSuffix === 'jsx') {
+    if (fileSuffix === 'jsx' || fileSuffix === 'tsx' || fileSuffix === 'ts') {
       fileSuffix = 'js';
     }
 
@@ -91,7 +91,7 @@ module.exports = function(options) {
 
     try {
       fastclick = require.resolve('fastclick');
-    } catch ( e ) {
+    } catch (e) {
       fastclick = false;
     }
 
@@ -106,7 +106,7 @@ module.exports = function(options) {
     var exampleHtml = xrender(renderData)
 
     chunk.contents = new Buffer(exampleHtml)
-    chunk.path = chunk.path.replace(/\.(js|jsx)$/, '.html')
+    chunk.path = chunk.path.replace(/\.(jsx?|tsx?)$/, '.html')
 
     filesName.push({
       name: basename,
@@ -120,7 +120,7 @@ module.exports = function(options) {
 
   return through2({
     objectMode: true
-  }, jsx2example, function(done) {
+  }, jsx2example, function (done) {
     var indexData = {
       _list: filesName
     }
