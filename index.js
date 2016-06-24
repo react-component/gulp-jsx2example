@@ -127,6 +127,7 @@ module.exports = function(options) {
       _common: 'common.js',
       _css: css,
       _code: source,
+      _extName: extName.substr(1),
       opts: opts,
       jsx2examplePkg: jsx2examplePkg
     });
@@ -212,8 +213,8 @@ module.exports = function(options) {
 
     webpackCompiler(commonJS, webpackConfig, function(err, files) {
       if (err) {
-        gutil.log(err);
-        process.exit(1);
+        console.log(err);
+        done(new Error(err));
       }
       for (var i = 0; i < files.length; i++) {
         var file = files[i];
