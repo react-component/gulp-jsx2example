@@ -6,11 +6,13 @@ var getTs = require('./lib/getTs');
 
 var babelLoader = require.resolve('babel-loader');
 var cssLoader = require.resolve('css-loader');
+var styleLoader = require.resolve('style-loader');
 var lessLoader = require.resolve('less-loader');
 var tsLoader = require.resolve('ts-loader');
 
 module.exports = {
   resolve: {
+    root: process.cwd(),
     extensions: [
       '',
       '.ts',
@@ -26,12 +28,12 @@ module.exports = {
     loaders: [{
       test: /\.css$/,
       loader: ExtractTextPlugin.extract(
-        cssLoader + '?sourceMap&-minimize!'
+        styleLoader, cssLoader + '?sourceMap&-minimize!'
       )
     }, {
       test: /\.less$/,
       loader: ExtractTextPlugin.extract(
-        cssLoader + '?sourceMap&-minimize!' + lessLoader + '?sourceMap'
+        styleLoader, cssLoader + '?sourceMap&-minimize!' + lessLoader + '?sourceMap'
       )
     }, {
       test: /\.jsx?$/,
