@@ -46,6 +46,7 @@
     "marked": "~0.3.3",
     "match-require": "~1.1.1",
     "memory-fs": "~0.3.0",
+    "style-loader": "^0.13.1",
     "through2": "~2.0.0",
     "ts-loader": "^0.8.2",
     "typescript": "^1.8.10",
@@ -58,6 +59,7 @@
     "gh-pages": "~0.3.1",
     "gulp": "~3.9.0",
     "react": "^15.1.0",
-    "react-dom": "^15.1.0"
+    "react-dom": "^15.1.0",
+    "rmc-picker": "^3.1.0"
   }
 }
