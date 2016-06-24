@@ -22,6 +22,11 @@
         opacity: 0;
       }
 
+      .header {
+        border-bottom: 3px solid #f3f3f3;
+        padding-bottom: 0.5rem;
+      }
+
       .header p {
         color: #666;
       }
@@ -186,7 +191,7 @@
     </div>
     <div class="example" id="__react-content"></div>
     <div class="edit">
-      <textarea id="code" class="code">var React =  require('react');
+      <textarea id="code" class="code" data-ext=js>var React =  require('react');
 var ReactDOM = require('react-dom');
 var My = require('gulp-jsx2example/lib/xx');
 
@@ -231,10 +236,10 @@ window.onload = function() {
         presets: ['es2015', 'react', 'stage-0']
       })
       var es5code = codeObj.code;
-      ReactDOM.unmountComponentAtNode(mountNode)
       eval(es5code)
     } catch (err) {
-      console.error(err)
+      console.error(err);
+      console.error(err.message);
     }
   }
 

@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>jsxfile.js - example - gulp-jsx2example@2.0.0</title>
+  <title>typeScript.js - example - gulp-jsx2example@2.0.0</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -191,13 +191,40 @@
     </div>
     <div class="example" id="__react-content"></div>
     <div class="edit">
-      <textarea id="code" class="code" data-ext=jsx>var React =  require('react');
-const ReactDOM = require('react-dom');
+      <textarea id="code" class="code" data-ext=tsx>import React from 'react';
+import ReactDOM from 'react-dom';
+
+import Picker from 'rmc-picker';
+
+import 'rmc-picker/assets/index.css';
+
+let items: Object[] = [];
+
+for (var i = 0; i < 10; i++) {
+  items.push({
+    value: String(i),
+    label: String(i * 2)
+  });
+}
 
 ReactDOM.render(
-  <div>Hello jsx2example, Thank you for your use</div>,
-  document.getElementById('__react-content')
+  <Picker>
+    {items}
+  </Picker>
+  , mountNode
 );
+
+
+interface LabelledValue {
+    label: string;
+}
+
+function printLabel(labelledObj: LabelledValue) {
+    console.log(labelledObj.label);
+}
+
+let myObj = {size: 10, label: "Size 10 Object"};
+printLabel(myObj);
 </textarea>
     </div>
     <style>.footer{line-height: 60px; text-align: center; }</style>
