@@ -243,6 +243,15 @@ printLabel(myObj);
 window.onload = function() {
   var mountNode = document.getElementById('__react-content');
 
+  var modeMap = {
+    'js': 'jsx',
+    'jsx': 'jsx',
+    'ts': 'text/typescript',
+    'tsx': 'text/typescript'
+  }
+
+  var mode = modeMap['tsx'] || 'jsx';
+
   var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
     lineNumbers: true,
     styleActiveLine: true,
@@ -250,7 +259,7 @@ window.onload = function() {
     theme: 'monokai',
     autoCloseBrackets: true,
     tabSize: 2,
-    mode: 'jsx'
+    mode: mode
   });
 
   function runCode(code) {
