@@ -200,7 +200,7 @@ module.exports = function(options) {
       },
       output: {
         path: opts.cwd,
-        filename: 'common.js'
+        filename: '[name].js'
       }
     };
 
