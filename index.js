@@ -87,16 +87,7 @@ module.exports = function (options) {
       }
     }
 
-    var fastclick = true;
-
-    try {
-      fastclick = require.resolve('fastclick');
-    } catch (e) {
-      fastclick = false;
-    }
-
     var renderData = merge(packageInfo, {
-      fastclick: fastclick,
       _common: 'common.js',
       _app: basename + '.js',
       _css: css,

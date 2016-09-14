@@ -1,6 +1,6 @@
 {
   "name": "gulp-jsx2example",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "convert jsx file to html (react demo)",
   "main": "index.js",
   "scripts": {

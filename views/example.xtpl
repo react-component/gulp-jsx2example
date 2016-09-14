@@ -251,10 +251,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
   <!--[if lt IE 9]>
   <script src="https://a.alipayobjects.com/??es5-shim/4.0.5/es5-shim.js,es5-shim/4.0.5/es5-sham.js,html5shiv/3.7.2/src/html5shiv.js"></script>
   <![endif]-->
-  <script src="https://as.alipayobjects.com/g/component/modernizr/2.8.3/modernizr.js"></script>
-  {{#if(fastclick)}}
-  <script src="https://as.alipayobjects.com/g/component/fastclick/1.0.6/fastclick.js"></script>
-  {{/if}}
+  <script src="https://as.alipayobjects.com/g/component/??modernizr/2.8.3/modernizr.js,fastclick/1.0.6/fastclick.js"></script>
   <script>
   if(!window.Promise) {
     document.writeln('<script src="https://as.alipayobjects.com/g/component/es6-promise/3.2.2/es6-promise.min.js"'+'>'+'<'+'/'+'script>');
@@ -280,9 +277,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
          alt="Fork me on GitHub"
          data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png">
   </a>
-  {{#if(fastclick)}}
-    <script>FastClick.attach(document.body);</script>
-  {{/if}}
+  <script>FastClick.attach(document.body);</script>
   <script src="{{_common}}?nowrap"></script>
   <script src="{{_app}}?nowrap"></script>
 </body>
