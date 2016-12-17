@@ -2,13 +2,14 @@
 
 var fs = require('fs');
 var gutil = require('gulp-util');
-var merge = require('lodash.merge');
 var uniq = require('lodash.uniq');
 var matchRequire = require('match-require');
 var path = require('path');
 var through2 = require('through2');
+var mergewith = require('lodash.mergewith');
 
 var mainTempelte = require('./lib/main-templete.js');
+var defaultConfig = require('./lib/compile.config.js');
 var webpackCompiler = require('./lib/compiler.js');
 var markdown = require('./lib/markdown');
 var xrender = require('./lib/xtpl');
@@ -29,9 +30,9 @@ function replaceSrcToLib(modName) {
   });
 }
 
-module.exports = function(options) {
+module.exports = function(options, updateWebpackConfig) {
   var requireModules = ['react', 'react-dom'];
-  var opts = merge({
+  var opts = mergewith({
     readme: 'README.md',
     package: 'package.json',
     cwd: process.cwd(),
@@ -121,7 +122,7 @@ module.exports = function(options) {
       fastclick = false;
     }
 
-    var renderData = merge(packageInfo, {
+    var renderData = mergewith(packageInfo, {
       fastclick: fastclick,
       _app: baseName + '.js',
       _common: 'common.js',
@@ -170,7 +171,7 @@ module.exports = function(options) {
       indexData._readme = markdown(readmePath);
     }
 
-    indexData = merge(packageInfo, indexData);
+    indexData = mergewith(packageInfo, indexData);
     var indexHtml = xrender(indexData, 'index');
 
     var indexFile = new gutil.File({
@@ -209,6 +210,19 @@ module.exports = function(options) {
         'react': 'window.React',
         'react-dom': 'window.ReactDOM'
       };
+    }
+
+    webpackConfig = mergewith(
+      defaultConfig,
+      webpackConfig,
+      function(objValue, srcValue) {
+        if (Array.isArray(objValue)) {
+          return objValue.concat(srcValue);
+        }
+      });
+
+    if (typeof updateWebpackConfig === 'function') {
+      webpackConfig = updateWebpackConfig(webpackConfig);
     }
 
     webpackCompiler(commonJS, webpackConfig, function(err, files) {

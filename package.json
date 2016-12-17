@@ -41,7 +41,7 @@
     "highlight.js": "8.x",
     "less": "~2.6.1",
     "less-loader": "~2.2.3",
-    "lodash.merge": "~3.3.2",
+    "lodash.mergewith": "~4.6.0",
     "lodash.uniq": "~4.2.1",
     "marked": "~0.3.3",
     "match-require": "~1.1.1",

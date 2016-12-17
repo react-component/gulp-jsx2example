@@ -11,7 +11,7 @@ Compile JSX file to HTML (REPL)
 ```js
 return gulp
   .src(sourceFiles)
-  .pipe(jsx2example(options));
+  .pipe(jsx2example(options[, updateWebapckConfig(config):Object]));
 ```
 
 ## Options
@@ -34,7 +34,6 @@ If production `true`, Will replace gulp entry files content match :
 - `new RegExp('(["\']' + pkg.name + ')\/assets\/([^.\'"]+).less', 'g')` => `$1 + '/assets/' + $2 + '.css'`
 
 > `pkg` is equal to the `options.package`
-
 
 ## Example
 You can reference this repository `gulpfile.js`
