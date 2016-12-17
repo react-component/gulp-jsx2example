@@ -40,6 +40,9 @@
         font: 14px/20px Consolas, Monaco, 'Andale Mono', monospace !important;
         padding: 4px 0;
         background-color: #21221d;
+        -webkit-overflow-scrolling: touch;
+      }
+      .CodeMirror-lines {
         background-image: -webkit-linear-gradient(#21221d 50%, #272822 50%);
         background-image: -moz-linear-gradient(#21221d 50%, #272822 50%);
         background-image: -ms-linear-gradient(#21221d 50%, #272822 50%);
@@ -47,7 +50,6 @@
         background-image: linear-gradient(#21221d 50%, #272822 50%);
         background-size: 40px 40px;
         background-origin: content-box;
-        -webkit-overflow-scrolling: touch;
       }
       .CodeMirror-lines{
         padding: 0;
@@ -178,9 +180,10 @@
   <script src="//cdn.bootcss.com/codemirror/5.12.0/mode/jsx/jsx.min.js?nowrap"></script>
   <script src="//cdn.bootcss.com/codemirror/5.12.0/addon/edit/closebrackets.min.js?nowrap"></script>
   <script src="//cdn.bootcss.com/babel-standalone/6.4.4/babel.min.js?nowrap"></script>
+  <script src="//cdn.bootcss.com/typescript/2.1.4/typescript.min.js"></script>
   {{#if(opts.externalReact)}}
-    <script src="//cdn.bootcss.com/react/15.1.0/react.js"></script>
-    <script src="//cdn.bootcss.com/react/15.1.0/react-dom.js"></script>
+    <script src="//cdn.bootcss.com/react/15.4.1/react.js"></script>
+    <script src="//cdn.bootcss.com/react/15.4.1/react-dom.js"></script>
   {{/if}}
 </head>
 
@@ -213,8 +216,8 @@ window.onload = function() {
     'ts': 'text/typescript',
     'tsx': 'text/typescript'
   }
-
-  var mode = modeMap['{{_extName}}'] || 'jsx';
+  var extName = '{{_extName}}';
+  var editorMode = modeMap[extName] || 'jsx';
 
   var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
     lineNumbers: true,
@@ -223,20 +226,53 @@ window.onload = function() {
     theme: 'monokai',
     autoCloseBrackets: true,
     tabSize: 2,
-    mode: mode
+    mode: editorMode
   });
 
-  function runCode(code) {
+  function babelCompiler(code) {
+    var result = '';
     try {
-      var codeObj = Babel.transform(code, {
+      result = Babel.transform(code, {
         presets: ['es2015', 'react', 'stage-0']
-      })
-      var es5code = codeObj.code;
-      eval(es5code)
+      }).code
+    } catch (err) {
+      console.error(err)
+    }
+    return result;
+  }
+
+  function tsCompiler(code) {
+    var compileOptions = {
+      module: ts.ModuleKind.ES2015,
+      target: ts.ScriptTarget.Latest,
+      jsx: true,
+    };
+    var result = '';
+    try {
+      result = ts.transpile(
+        code,
+        compileOptions
+      );
+    } catch (err) {
+      console.error(err)
+    }
+    if (result) {
+      return babelCompiler(result);
+    }
+    return result;
+  }
+
+  function runCode(code) {
+    var compiler = editorMode === 'text/typescript' ?
+      tsCompiler : babelCompiler;
+
+    try {
+      var outCode = compiler(code);
+      eval(outCode);
     } catch (err) {
       console.error(err);
-      console.error(err.message);
     }
+
   }
 
   var code = editor.getValue();
