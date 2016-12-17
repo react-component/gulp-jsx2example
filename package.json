@@ -4,13 +4,13 @@
   "description": "convert jsx file to html (REPL)",
   "main": "index.js",
   "scripts": {
-    "deploy": "gulp && ./node_modules/.bin/gh-pages -d site",
+    "deploy": "gulp && node ./gh-pages.js",
     "test": "gulp",
     "publish": "git push origin"
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/noyobo/gulp-jsx2example.git"
+    "url": "git@github.com:react-component/gulp-jsx2example.git"
   },
   "keywords": [
     "react",
@@ -56,7 +56,7 @@
   },
   "devDependencies": {
     "antd": "~2.5.2",
-    "gh-pages": "~0.3.1",
+    "gh-pages": "~0.12.0",
     "gulp": "~3.9.0",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
