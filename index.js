@@ -8,7 +8,7 @@ var matchRequire = require('match-require');
 var path = require('path');
 var through2 = require('through2');
 
-var codeTempelte = require('./lib/code-templete.js');
+var mainTempelte = require('./lib/main-templete.js');
 var webpackCompiler = require('./lib/compiler.js');
 var markdown = require('./lib/markdown');
 var xrender = require('./lib/xtpl');
@@ -190,7 +190,7 @@ module.exports = function(options) {
     var self = this;
     self.push(exampleIndex);
 
-    var commonJS = codeTempelte(requireModules);
+    var commonJS = mainTempelte(requireModules);
 
     var webpackConfig = {
       context: opts.cwd,
