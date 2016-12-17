@@ -33,6 +33,7 @@
 
       .example {
         padding: 20px 0;
+        min-height: 89px;
       }
       .CodeMirror,
       .cm-s-monokai.CodeMirror {
@@ -40,6 +41,9 @@
         font: 14px/20px Consolas, Monaco, 'Andale Mono', monospace !important;
         padding: 4px 0;
         background-color: #21221d;
+        -webkit-overflow-scrolling: touch;
+      }
+      .CodeMirror-lines {
         background-image: -webkit-linear-gradient(#21221d 50%, #272822 50%);
         background-image: -moz-linear-gradient(#21221d 50%, #272822 50%);
         background-image: -ms-linear-gradient(#21221d 50%, #272822 50%);
@@ -47,7 +51,6 @@
         background-image: linear-gradient(#21221d 50%, #272822 50%);
         background-size: 40px 40px;
         background-origin: content-box;
-        -webkit-overflow-scrolling: touch;
       }
       .CodeMirror-lines{
         padding: 0;
@@ -139,6 +142,134 @@
       border-color: #fff;
       border-color: rgba(255, 255, 255, 0.7);
     }
+    .cssload-loader {
+      width: 244px;
+      height: 49px;
+      line-height: 49px;
+      text-align: center;
+      position: absolute;
+      left: 50%;
+      top: 24.5px;
+      transform: translate(-50%, -50%);
+      -o-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+      -webkit-transform: translate(-50%, -50%);
+      -moz-transform: translate(-50%, -50%);
+      font-family: helvetica, arial, sans-serif;
+      text-transform: uppercase;
+      font-weight: 900;
+      font-size: 18px;
+      color: #f92672;
+      letter-spacing: 0.2em;
+    }
+
+    .cssload-loader::before,
+    .cssload-loader::after {
+      content: "";
+      display: block;
+      width: 15px;
+      height: 15px;
+      background: #333;
+      position: absolute;
+      animation: cssload-load 0.81s infinite alternate ease-in-out;
+      -o-animation: cssload-load 0.81s infinite alternate ease-in-out;
+      -ms-animation: cssload-load 0.81s infinite alternate ease-in-out;
+      -webkit-animation: cssload-load 0.81s infinite alternate ease-in-out;
+      -moz-animation: cssload-load 0.81s infinite alternate ease-in-out;
+    }
+
+    .cssload-loader::before {
+      top: 0;
+    }
+
+    .cssload-loader::after {
+      bottom: 0;
+    }
+
+    @keyframes cssload-load {
+      0% {
+        left: 0;
+        height: 29px;
+        width: 15px;
+      }
+      50% {
+        height: 8px;
+        width: 39px;
+      }
+      100% {
+        left: 229px;
+        height: 29px;
+        width: 15px;
+      }
+    }
+
+    @-o-keyframes cssload-load {
+      0% {
+        left: 0;
+        height: 29px;
+        width: 15px;
+      }
+      50% {
+        height: 8px;
+        width: 39px;
+      }
+      100% {
+        left: 229px;
+        height: 29px;
+        width: 15px;
+      }
+    }
+
+    @-ms-keyframes cssload-load {
+      0% {
+        left: 0;
+        height: 29px;
+        width: 15px;
+      }
+      50% {
+        height: 8px;
+        width: 39px;
+      }
+      100% {
+        left: 229px;
+        height: 29px;
+        width: 15px;
+      }
+    }
+
+    @-webkit-keyframes cssload-load {
+      0% {
+        left: 0;
+        height: 29px;
+        width: 15px;
+      }
+      50% {
+        height: 8px;
+        width: 39px;
+      }
+      100% {
+        left: 229px;
+        height: 29px;
+        width: 15px;
+      }
+    }
+
+    @-moz-keyframes cssload-load {
+      0% {
+        left: 0;
+        height: 29px;
+        width: 15px;
+      }
+      50% {
+        height: 8px;
+        width: 39px;
+      }
+      100% {
+        left: 229px;
+        height: 29px;
+        width: 15px;
+      }
+    }
   </style>
   <link rel="stylesheet" href="common.css" />
   <script>
@@ -167,19 +298,6 @@
   <!--[if lt IE 9]>
   <script src="https://a.alipayobjects.com/??es5-shim/4.0.5/es5-shim.js,es5-shim/4.0.5/es5-sham.js,html5shiv/3.7.2/src/html5shiv.js"></script>
   <![endif]-->
-  
-  <script src="//cdn.bootcss.com/codemirror/5.12.0/codemirror.js?nowrap"></script>
-  <script src="//cdn.bootcss.com/codemirror/5.12.0/addon/edit/matchbrackets.min.js?nowrap"></script>
-  <script src="//cdn.bootcss.com/codemirror/5.12.0/addon/selection/active-line.min.js?nowrap"></script>
-  <script src="//cdn.bootcss.com/codemirror/5.12.0/mode/javascript/javascript.min.js?nowrap"></script>
-  <script src="//cdn.bootcss.com/codemirror/5.12.0/mode/xml/xml.min.js?nowrap"></script>
-  <script src="//cdn.bootcss.com/codemirror/5.12.0/mode/jsx/jsx.min.js?nowrap"></script>
-  <script src="//cdn.bootcss.com/codemirror/5.12.0/addon/edit/closebrackets.min.js?nowrap"></script>
-  <script src="//cdn.bootcss.com/babel-standalone/6.4.4/babel.min.js?nowrap"></script>
-  
-    <script src="//cdn.bootcss.com/react/15.1.0/react.js"></script>
-    <script src="//cdn.bootcss.com/react/15.1.0/react-dom.js"></script>
-  
 </head>
 
 <body>
@@ -189,7 +307,11 @@
 
       <p>convert jsx file to html (REPL)</p>
     </div>
-    <div class="example" id="__react-content"></div>
+    <div class="example" id="__react-content">
+      <div style="height: 49px; position: relative">
+        <div class="cssload-loader">&lt;REPL /&gt;</div>
+      </div>
+    </div>
     <div class="edit">
       <textarea id="code" class="code" data-ext=jsx>var React =  require('react');
 const ReactDOM = require('react-dom');
@@ -210,6 +332,17 @@ ReactDOM.render(
   </div>
   <a class="github-fork-ribbon" href="https://github.com/noyobo/gulp-jsx2example#readme" title="Fork me on GitHub">Fork me on GitHub</a>
   
+  <script src="//cdn.bootcss.com/codemirror/5.12.0/codemirror.js?nowrap"></script>
+  <script src="//cdn.bootcss.com/codemirror/5.12.0/addon/edit/matchbrackets.min.js?nowrap"></script>
+  <script src="//cdn.bootcss.com/codemirror/5.12.0/addon/selection/active-line.min.js?nowrap"></script>
+  <script src="//cdn.bootcss.com/codemirror/5.12.0/mode/javascript/javascript.min.js?nowrap"></script>
+  <script src="//cdn.bootcss.com/codemirror/5.12.0/mode/xml/xml.min.js?nowrap"></script>
+  <script src="//cdn.bootcss.com/codemirror/5.12.0/mode/jsx/jsx.min.js?nowrap"></script>
+  <script src="//cdn.bootcss.com/codemirror/5.12.0/addon/edit/closebrackets.min.js?nowrap"></script>
+  
+    <script src="//cdn.bootcss.com/react/15.4.1/react.js"></script>
+    <script src="//cdn.bootcss.com/react/15.4.1/react-dom.js"></script>
+  
   <script src="common.js?nowrap"></script>
 <script>
   /*********/
@@ -222,8 +355,8 @@ window.onload = function() {
     'ts': 'text/typescript',
     'tsx': 'text/typescript'
   }
-
-  var mode = modeMap['jsx'] || 'jsx';
+  var extName = 'jsx';
+  var editorMode = modeMap[extName] || 'jsx';
 
   var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
     lineNumbers: true,
@@ -232,31 +365,48 @@ window.onload = function() {
     theme: 'monokai',
     autoCloseBrackets: true,
     tabSize: 2,
-    mode: mode
+    mode: editorMode
   });
 
-  function runCode(code) {
-    try {
-      var codeObj = Babel.transform(code, {
-        presets: ['es2015', 'react', 'stage-0']
-      })
-      var es5code = codeObj.code;
-      eval(es5code)
-    } catch (err) {
+
+  var edirotWorker = new Worker('./edirotWorker.js');
+
+  edirotWorker.addEventListener('message', function (event) {
+    try{
+      eval(event.data);
+    } catch(err) {
       console.error(err);
-      console.error(err.message);
     }
+  }, false);
+
+  edirotWorker.addEventListener('error', function (event) {
+    console.error(event.data);
+    event.preventDefault();
+  }, false);
+
+  var workerTimer = null;
+
+  function postCodeToWorker(code) {
+    workerTimer && clearTimeout(workerTimer);
+
+    workerTimer = setTimeout(function () {
+      edirotWorker.postMessage({
+        code: code,
+        editorMode: editorMode
+      });
+    }, 200);
   }
 
+  // DOMContentLoaded first time
   var code = editor.getValue();
-
-  runCode(code)
+  postCodeToWorker(code);
 
   editor.on('change', function(CodeMirror, changeObj) {
     var code = CodeMirror.getValue();
-    runCode(code);
+    postCodeToWorker(code);
   });
-}</script>
+}
+</script>
 </body>
 
 </html>
