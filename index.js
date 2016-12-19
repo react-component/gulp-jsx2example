@@ -2,13 +2,14 @@
 
 var fs = require('fs');
 var gutil = require('gulp-util');
-var merge = require('lodash.merge');
 var uniq = require('lodash.uniq');
 var matchRequire = require('match-require');
 var path = require('path');
 var through2 = require('through2');
+var mergewith = require('lodash.mergewith');
 
-var codeTempelte = require('./lib/code-templete.js');
+var mainTempelte = require('./lib/main-templete.js');
+var defaultConfig = require('./lib/compile.config.js');
 var webpackCompiler = require('./lib/compiler.js');
 var markdown = require('./lib/markdown');
 var xrender = require('./lib/xtpl');
@@ -29,9 +30,9 @@ function replaceSrcToLib(modName) {
   });
 }
 
-module.exports = function(options) {
+module.exports = function(options, updateWebpackConfig) {
   var requireModules = ['react', 'react-dom'];
-  var opts = merge({
+  var opts = mergewith({
     readme: 'README.md',
     package: 'package.json',
     cwd: process.cwd(),
@@ -66,9 +67,13 @@ module.exports = function(options) {
     }
 
     var extName = path.extname(chunk.path);
-    var basename = path.basename(chunk.path, extName);
+    var baseName = path.basename(chunk.path, extName);
+    var dirName = path.dirname(chunk.path);
 
-    if (extName !== '.js' && extName !== '.jsx') {
+    if (
+      extName !== '.js' && extName !== '.jsx' &&
+      extName !== '.ts' && extName !== '.tsx'
+    ) {
       return cb(null, chunk);
     }
 
@@ -117,12 +122,13 @@ module.exports = function(options) {
       fastclick = false;
     }
 
-    var renderData = merge(packageInfo, {
+    var renderData = mergewith(packageInfo, {
       fastclick: fastclick,
-      _app: basename + '.js',
+      _app: baseName + '.js',
       _common: 'common.js',
       _css: css,
       _code: source,
+      _extName: extName.substr(1),
       opts: opts,
       jsx2examplePkg: jsx2examplePkg
     });
@@ -130,13 +136,14 @@ module.exports = function(options) {
     var exampleHtml = xrender(renderData);
 
     chunk.contents = new Buffer(exampleHtml);
-    chunk.path = chunk.path.replace(/\.(js|jsx)$/, '.html');
+
+    chunk.path = path.join(dirName, baseName + '.html');
 
     filesName.push({
-      name: basename,
+      name: baseName,
       url: path.relative(fileCwd, chunk.path)
     });
-    gutil.log(colors.magenta(jsx2examplePkg.name), colors.green('create html file:'), basename + '.html');
+    gutil.log(colors.magenta(jsx2examplePkg.name), colors.green('create html file:'), baseName + '.html');
 
     this.push(chunk);
     cb();
@@ -164,7 +171,7 @@ module.exports = function(options) {
       indexData._readme = markdown(readmePath);
     }
 
-    indexData = merge(packageInfo, indexData);
+    indexData = mergewith(packageInfo, indexData);
     var indexHtml = xrender(indexData, 'index');
 
     var indexFile = new gutil.File({
@@ -184,7 +191,7 @@ module.exports = function(options) {
     var self = this;
     self.push(exampleIndex);
 
-    var commonJS = codeTempelte(requireModules);
+    var commonJS = mainTempelte(requireModules);
 
     var webpackConfig = {
       context: opts.cwd,
@@ -194,7 +201,7 @@ module.exports = function(options) {
       },
       output: {
         path: opts.cwd,
-        filename: 'common.js'
+        filename: '[name].js'
       }
     };
 
@@ -205,7 +212,24 @@ module.exports = function(options) {
       };
     }
 
+    webpackConfig = mergewith(
+      defaultConfig,
+      webpackConfig,
+      function(objValue, srcValue) {
+        if (Array.isArray(objValue)) {
+          return objValue.concat(srcValue);
+        }
+      });
+
+    if (typeof updateWebpackConfig === 'function') {
+      webpackConfig = updateWebpackConfig(webpackConfig);
+    }
+
     webpackCompiler(commonJS, webpackConfig, function(err, files) {
+      if (err) {
+        console.log(err);
+        done(new Error(err));
+      }
       for (var i = 0; i < files.length; i++) {
         var file = files[i];
         self.push(file);

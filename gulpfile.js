@@ -12,6 +12,9 @@ gulp.task('site', function() {
     .pipe(jsx2example({
       production: true,
       externalReact: true
+    }, function updateWebpackConfig(webpackConfig) {
+      console.log(webpackConfig);
+      return webpackConfig;
     }))
     .pipe(gulp.dest('./site/examples'));
 });
