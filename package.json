@@ -1,6 +1,6 @@
 {
   "name": "gulp-jsx2example",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "convert jsx file to html (react demo)",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/noyobo/gulp-jsx2example.git"
+    "url": "git+ssh://git@github.com/react-component/gulp-jsx2example.git"
   },
   "files": [
     "views/",
@@ -28,9 +28,9 @@
   "author": "noyobo <noyobo@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/noyobo/gulp-jsx2example/issues"
+    "url": "https://github.com/react-component/gulp-jsx2example/issues"
   },
-  "homepage": "https://github.com/noyobo/gulp-jsx2example#readme",
+  "homepage": "https://github.com/react-component/gulp-jsx2example#readme",
   "dependencies": {
     "gulp-util": "~3.0.6",
     "highlight.js": "8.x",

@@ -77,10 +77,18 @@ module.exports = function (options) {
 
     var code = hljs.render(replaceSrcToLib(source), fileSuffix)
 
-    var css = ''
+    var css = '';
+    var commonJs = 'common.js';
     if (opts.dest) {
       if (fs.existsSync(path.join(cwd, options.dest, 'common.css'))) {
         css += '<link rel="stylesheet" href="common.css" />'
+      }
+      if (fs.existsSync(path.join(cwd, options.dest, '../common.css'))) {
+        css += '<link rel="stylesheet" href="../common.css" />'
+      }
+
+      if (fs.existsSync(path.join(cwd, options.dest, '../common.js'))) {
+        commonJs = '../common.js';
       }
       if (fs.existsSync(path.join(cwd, options.dest, basename + '.css'))) {
         css += '<link rel="stylesheet" href="' + basename + '.css" />'
@@ -88,7 +96,7 @@ module.exports = function (options) {
     }
 
     var renderData = merge(packageInfo, {
-      _common: 'common.js',
+      _common: commonJs,
       _app: basename + '.js',
       _css: css,
       _code: code
