@@ -55,7 +55,7 @@
     "xtpl": "3.x"
   },
   "devDependencies": {
-    "antd": "~2.5.2",
+    "antd": "~2.13.14",
     "gh-pages": "~0.12.0",
     "gulp": "~3.9.0",
     "react": "^15.1.0",
