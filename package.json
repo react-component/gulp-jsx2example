@@ -45,7 +45,7 @@
     "lodash.uniq": "~4.2.1",
     "marked": "~0.3.3",
     "match-require": "~1.1.1",
-    "memory-fs": "~0.3.0",
+    "memory-fs": "~0.5.0",
     "style-loader": "^0.13.1",
     "through2": "~2.0.0",
     "ts-loader": "^0.8.2",
