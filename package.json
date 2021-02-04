@@ -48,7 +48,7 @@
     "memory-fs": "~0.3.0",
     "style-loader": "^0.13.1",
     "through2": "~2.0.0",
-    "ts-loader": "^0.8.2",
+    "ts-loader": "^8.0.15",
     "typescript": "^2.1.4",
     "webpack": "^1.13.1",
     "xtemplate": "4.x",
